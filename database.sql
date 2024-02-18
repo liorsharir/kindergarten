@@ -39,10 +39,10 @@ create Table children(
 
 
 insert INTO users (id,password, email,firstName,lastName, phone,birthday, gender,token,avatar,auth) Values
-("515488950","123123","user1@gamil.com","שושי" ,"שושנה" ,"0505055555"   ,"" ,"female","","","KINDERGARTNER" ),
-("515488951","123456","user2@gamil.com","רחל"  ,"רחלה"  ,"0505055555"   ,"" ,"female","","","ASSISTANCE" ),
-("515488952","123123","user3@gamil.com","אלה"  ,"אל"    ,"0505055555"   ,"" ,"female","","","ASSISTANCE" ),
-("515488953","123123","user4@gamil.com","ירדן" ,"ירדנה" ,"0505055555"   ,"" ,"female","","","ASSISTANCE" );
+("515488950","123123","user1@gmail.com","שושי" ,"שושנה" ,"0505055555"   ,"" ,"female","","","KINDERGARTNER" ),
+("515488951","123456","user2@gmail.com","רחל"  ,"רחלה"  ,"0505055555"   ,"" ,"female","","","ASSISTANCE" ),
+("515488952","123123","user3@gmail.com","אלה"  ,"אל"    ,"0505055555"   ,"" ,"female","","","ASSISTANCE" ),
+("515488953","123123","user4@gmail.com","ירדן" ,"ירדנה" ,"0505055555"   ,"" ,"female","","","ASSISTANCE" );
 
 
 insert INTO children (id,firstName,lastName,birthday,motherName,motherEmail,motherPhone,fatherName,fatherEmail,fatherPhone,MedicalInfo,image) Values
