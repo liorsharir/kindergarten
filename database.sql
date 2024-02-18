@@ -1,3 +1,6 @@
+CREATE DATABASE project;
+USE project;
+
 create Table users(
     id        varchar(10),
     password  varchar(255),
