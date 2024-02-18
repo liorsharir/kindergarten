@@ -8,7 +8,7 @@ document.getElementById("root").innerHTML = /*html*/`
         <div id="children-container">
             <div id="addChildrenActions" style="display:none"></div>
             <div id="childern-list">
-                <h1>ילדי גן אלה :</h1> <br>
+                <h2>ילדי גן אלה :</h2> <br>
                 <div id="childComponents">
                     ${ChildrenItem(data.children)}
                     ${render(data.user.auth == "KINDERGARTNER",/*html*/`
