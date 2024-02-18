@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="static/css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/site.css"/>
+</head>
+<body>
+    <div id="root" class=""></div>
+    <div id="data" style="display:none">{{data}}</div>
+
+
+    <script src="static/lib/json.js"></script>
+    <script src="static/lib/render.js"></script>
+    <script src="static/lib/loop.js"></script>
+    <script src="static/lib/jquery.js"></script>
+    <script src="static/lib/http.js"></script>
+    <script src="static/lib/alert.js"></script>
+
+    {% for script in scripts %}
+        <script src="static/scripts/{{ script }}"></script>
+    {% endfor %}
+
+    {% for comp in components %}
+        <script src="static/comps/{{ comp }}"></script>
+    {% endfor %}
+
+    {% for p in page %}
+        <script src="static/pages/{{ p }}"></script>
+    {% endfor %}
+</body>
+</html>

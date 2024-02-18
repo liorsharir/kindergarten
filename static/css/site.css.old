@@ -1,0 +1,46 @@
+body{
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+    margin-top: 0.5vh;
+}
+
+#root{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid;
+    margin: auto;
+    width: 100%;
+    max-width: 1200px;
+    height: 800px;
+    direction: rtl;
+    background-color: #fcf9f9;
+
+}
+
+
+.tempOn{
+    background-image: url('http://127.0.0.1:5000/static/img/bgTemp.png'); 
+    background-repeat: no-repeat;
+}
+
+
+
+@media (max-width: 1200px) {
+    .container {
+        max-width: 95%; /* גודל מרבי קטן יותר למסכים קטנים יותר */
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        max-width: 85%;
+        padding: 10px; /* רווח קטן יותר בתוך הקונטיינר למסכים קטנים */
+    }
+}

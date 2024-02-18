@@ -1,0 +1,100 @@
+header{
+    display: flex;
+    height: 12%;
+    border-bottom: 2px solid #624de3;
+}
+
+header>div{
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+}
+
+#account{
+    display: flex;
+    align-items: center;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 300px;
+    width: 300px;
+}
+
+#menu{
+    display: inline-flex;
+    justify-content: center;
+    gap: 20px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 600px;
+    width: 600px;
+}
+
+
+#logo{
+    display: flex;
+    align-items: center;
+}
+
+
+
+#menu li{
+    font-size: xx-large;
+}
+
+
+
+#avatar{
+    width: 30%;
+    height: 80%;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+#name{
+    margin-right: 10px;
+    width: 60%;
+    height: 80%;
+}
+
+#hello{
+    font-size: large;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60%;
+}
+
+#logout{
+    height: 40%;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#notifications{
+    width: 15%;
+    margin: 0px 10px;
+} 
+
+
+
+#logout button {
+    width: 50%;
+    height:  90%;
+    background: #3498db;
+    background-image: linear-gradient(to bottom, #3498db, #2980b9);
+    border-radius: 28px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 10px;
+    padding: 3px 10px 3px 10px;
+    text-decoration: none;
+  }
+  
+#logout button:hover {
+    background: #3cb0fd;
+    background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+    text-decoration: none;
+  }

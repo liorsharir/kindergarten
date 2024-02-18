@@ -1,0 +1,29 @@
+.children-item{
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+    width: 150px;
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+.children-item #child-image{
+    display: flex;
+    justify-content: center;
+    height: 85%;
+
+}
+
+.children-item img{
+    display: block;
+    width: 95%;
+    border-radius: 20px;
+}
+
+.children-item #child-name{
+    display: flex;
+    justify-content: center;
+    font-size: large;
+    height: 10%;
+
+}

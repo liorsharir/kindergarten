@@ -1,0 +1,107 @@
+header{
+    display: flex;
+    height: 80px;
+    border-bottom: 2px solid #624de3;
+}
+
+header>div{
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+}
+
+#account{
+    display: flex;
+    align-items: center;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 300px;
+    width: 300px;
+}
+
+#menu{
+    display: inline-flex;
+    justify-content: center;
+    gap: 20px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 600px;
+    width: 600px;
+}
+
+
+#logo{
+    display: flex;
+    align-items: center;
+}
+
+
+
+#menu li{
+    font-size: x-large;
+    text-decoration: none; /* Remove default underline */
+    color: #333; /* Menu item text color */
+    padding: 10px 15px; /* Add padding to create clickable area */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; 
+}
+
+
+
+#avatar{
+    width: 30%;
+    height: 80%;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+#name{
+    margin-right: 10px;
+    width: 60%;
+    height: 80%;
+}
+
+#hello{
+    font-size: large;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60%;
+}
+
+#logout{
+    height: 40%;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#notifications{
+    width: 15%;
+    margin: 0px 10px;
+} 
+
+
+
+#logout button {
+    width: 50%;
+    height:  90%;
+    background: #277acd;
+    
+    border-radius: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #ffffff;
+    font-size: 13px;
+    padding: 3px 10px 4px 10px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    
+  }
+  
+#logout button:hover {
+    background-color: #007bff; /* Blue color on hover */
+    background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+    text-decoration: none;
+  }
