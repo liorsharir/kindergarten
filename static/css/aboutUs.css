@@ -7,3 +7,18 @@
     padding: 10px;
     color: white;
 }
+
+#AboutUs h2 {
+    font-size: 28px;
+    margin-bottom: 1%;
+}
+
+#AboutUs p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 1%;
+}
+
+
+
+
