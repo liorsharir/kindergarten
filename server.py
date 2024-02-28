@@ -1,19 +1,18 @@
 import logging
-
-from flask import Flask,request ,jsonify
-from server.User import User , Authorization
-from server.permission import ResponsePage ,checkPermission
-from server.Actions import Action
+from flask              import Flask,request ,jsonify
+from server.User        import User , Authorization
+from server.permission  import ResponsePage ,checkPermission
+from server.Actions     import Actions
 app = Flask(__name__)
 logging.getLogger('werkzeug').setLevel(logging.WARNING)
 
 GUEST         = "GUEST"
 ASSISTANCE    = "ASSISTANCE"
 KINDERGARTNER = "KINDERGARTNER"
+Action = Actions()
 
 
-
-#page 
+# --pages----------------------------------------------- 
 @app.route('/',methods=['GET']) 
 @app.route('/home',methods=['GET']) 
 def home():
@@ -30,7 +29,7 @@ def Children():
     return ResponsePage(
         request,
         page     = ["children.js"],
-        comps    = ["header.js","childrenItem.js","addChildren.js","editChildren.js"],
+        comps    = ["header.js","childrenItem.js","addChildren.js"],
         scripts  = ["validation.js"],
         auth     = [ASSISTANCE,KINDERGARTNER],
         sendData = [Action.GetAllChildern()],
@@ -41,10 +40,10 @@ def Assistant():
     return ResponsePage(
         request,
         page     = ["assistant.js"],
-        comps    = ["header.js","assistantItem.js","addAssistant.js","editAssistant.js"],
+        comps    = ["header.js","assistantItem.js","addAssistant.js","calendarAsistance.js"],
         scripts  = ["validation.js"],
-        auth     = [ASSISTANCE,KINDERGARTNER],
-        sendData = [Action.GetAllChildern()],
+        auth     = [KINDERGARTNER,ASSISTANCE],
+        sendData = [Action.GetAllAssistans()],
     )
 
 @app.route('/login',methods=['GET']) 
@@ -57,26 +56,22 @@ def Login():
     )
 
 
-# ----------------------------------------------------
+# --login--------------------------------------------------
 @app.route('/loginin',methods=['POST'])
 def Loginin():
-    if checkPermission([GUEST],request):
+    if checkPermission(["GUEST"],request):
         newToken = User.Login(request.get_json()['email'],request.get_json()['password'])
         if(newToken):
             return jsonify({"status":"200","newToken":newToken})
     return jsonify({"status":"400"})
     
-
 @app.route('/loginout',methods=['POST'])
 def Loginout():
     User.Loginout(request.cookies.get("token"))
     return jsonify({"status":"200"})
     
 
-
-
-# ----------------------------------------------------
-
+# --children--------------------------------------------------
 @app.route('/addChildren',methods=['POST'])
 def AddChildren():
     if checkPermission(["KINDERGARTNER"],request):
@@ -98,31 +93,32 @@ def RemoveChildren():
         return jsonify({"status":"200"})
     return jsonify({"status":"401"})
 
-# ----------------------------------------------------
+
+# --assistan--------------------------------------------------
 
 @app.route('/addAssistant',methods=['POST'])
 def AddAssistant():
     if checkPermission(["KINDERGARTNER"],request):
-        Action.AddAssistant(request.get_json())
+        Action.AddAssistans(request.get_json())
         return jsonify({"status":"200"})
     return jsonify({"status":"401"})
     
 @app.route('/updateAssistant',methods=['POST'])
 def UpdateAssistant():
     if checkPermission(["KINDERGARTNER"],request):
-        Action.UpdateAssistant(request.get_json())
+        Action.UpdateAssistans(request.get_json())
         return jsonify({"status":"200"})
     return jsonify({"status":"401"}) 
 
 @app.route('/removeAssistant',methods=['POST'])
 def RemoveAssistant():
     if checkPermission(["KINDERGARTNER"],request):
-        Action.RemoveAssistant(request.get_json())
+        Action.RemoveAssistans(request.get_json())
         return jsonify({"status":"200"})
     return jsonify({"status":"401"})
 
 
-# ----------------------------------------------------
+# --events--------------------------------------------------
 
 
 

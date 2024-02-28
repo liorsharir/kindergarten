@@ -1,58 +1,64 @@
-function EditChildren(assistant){
+function AddAssistant(index){
+    let assistant;
+    if(index != undefined)
+        assistant = data.assistants[index]
+    else
+        assistant = {id:"",firstName:"",lastName:"",birthday:"",phone:"",email:"",gender:"",avatar:""}
+
+
+
     return /*html*/`
-        <link rel="stylesheet" type="text/css" href="static/css/addAssistant.css"/>
-        <div id="AddAssistant">
-            <div id="exit" onclick="ExitAddAssistant()">X</div>
-            <div id="formAssistants">
-                <div id="formAssistant_data">
-                    <!-- <label for="">ת"ז</label><br/>
-                    <input id="childId" type="text" value="${child.id}"> 
-                    <br/>
-                    <label id="firstName" for="">שם פרטי</label><br/>
-                    <input type="text" value="${child.firstName}"> 
-                    <br/>
-                    <label for="">שם משפחה</label><br/>
-                    <input id="lastName" type="text" value="${child.lastName}"> 
-                    <br/>
-                    <label for="">תאריך לידה</label><br/>
-                    <input id="birthday" type="date" value="${child.birthday}"> <br/> -->
+        <div id="addAssistant" class="add_item">
+            <div id="AddAssistantExit"   class="Exit"  onclick="ExitActionAssistant()">X</div>
+            <div id="formAssistant"  class="form_add">
+                <div id="assistantData" class = "form_data">
+                    <label >ת"ז </label>        <input type="text" id="assistantId" value="${assistant.id}"       disable="${Number.isInteger(index)}"  /> 
+                    <label>שם פרטי</label>      <input type="text" id="firstName"   value="${assistant.firstName}" /> 
+                    <label>שם משפחה</label>     <input type="text" id="lastName"    value="${assistant.lastName}"  /> 
+                    <label>תאריך לידה</label>   <input type="date" id="birthday"    value="${assistant.birthday}"  />
+                    <label>email</label>        <input type="email" id="email"      value="${assistant.email}"  />
+                    <label>סיסמה</label>        <input type="password" id="password" value="${assistant.password}"  />
+                    <label>מין</label>            
+                    <select id="assistantGender" class="genderSelect">
+                        <option value="female">female</option>>
+                        <option value="male">male</option>>
+                    </select>
                 </div>
-                <div id="assistantImg"></div>
+                <div id="assistantImgContainer"  class="ImgContainer"  onclick="changeImg()">
+                    <img id="assistantImg" src="${assistant.avatar}" alt="Assistant_img"/>
+                </div>
             </div>
-        
-            <div id="assistant-action">
-                <div id="saveAssistant"   onclick="addAssistantHandler()">שמור</div>
+           
+            <div id="assistantAction" class="form_actions">
+                ${render(index != undefined , /*html*/`
+                    <div id="deleteAssistant" class="delete" onclick="deleteAssistantHandler()">מחק</div>
+                    <div id="saveAssistant"   class="save" onclick="addAssistantHandler('updateAssistant')">שמור</div>
+                `,/*html*/`
+                    <div id="saveAssistant"  class="save" onclick="addAssistantHandler('addAssistant')">הוסף</div>
+                `)}
             </div>
         </div>
     `
 }
 
-function ExitAddAssistant(){
-    let addChildrenActions = document.getElementById("addChildrenActions")
-    let childernList = document.getElementById("childern-list")
-    addChildrenActions.style.width = "0%"
-    childernList.style.width = "100%"
-    addChildrenActions.style.display = "none"
-    addChildrenActions.innerHTML = ""
+function ExitActionAssistant(){
+    let element1  = document.getElementById("assistantList")
+    let element2  = document.getElementById("assistantComponents")
+    let element3  = document.getElementById("assistantH1")
+    let element4  = document.getElementById("addAssistantActions")
+    element1.className = "list_1" 
+    element2.className = "item_components_1"         
+    element3.className = "h1_1"     
+    element4.className = "actions_1"         
+    element4.innerHTML = ""
 }
 
-function addAssistantHandler(){
-    let sendObject = {
-        assistantId     : document.getElementById("childId"),
-        firstName       : document.getElementById("firstName"),
-        lastName        : document.getElementById("lastName"),
-        birthday        : document.getElementById("birthday"),
-        assistantImg    : document.getElementById("assistantImg")
-    };
-    if(validation("children",sendObject)){
-        POST("/AddAssistant",{
-            assistantId     : document.getElementById("childId").value,
-            firstName       : document.getElementById("firstName").value,
-            lastName        : document.getElementById("lastName").value,
-            birthday        : document.getElementById("birthday").value,
-            assistantImg    : document.getElementById("assistantImg").innerHTML
-        },({status})=>{
-            if(status == 200)
+function addAssistantHandler(type){
+    let ArrIDs = ["assistantId","firstName","lastName","password","email","birthday","assistantGender","assistantImg"]
+    let resultValidation = validation("assistant",ArrIDs) 
+    if(resultValidation){
+        POST(`/${type}`,resultValidation,(respone)=>{
+            if(respone.status == 200)
                 location.reload()
             else
                 alert("אין לך הרשאה לפעולה זו")
@@ -60,7 +66,18 @@ function addAssistantHandler(){
     }
 }
 
+function deleteAssistantHandler(){
+    let answer = confirm("האם את בטוחה שכדאי למחוק את הסייעת :_(")
+    if(answer){
+        POST("/removeAssistant",{assistantId: document.getElementById("assistantId").value} ,(respone)=>{
+            if(respone.status == 200)
+                location.reload()
+            else
+                alert("אין לך הרשאה לפעולה זו")
+        })
+    }
+}
 
-
-
-
+function changeImg(){
+    
+}

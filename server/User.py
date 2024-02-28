@@ -40,7 +40,7 @@ class User:
     @staticmethod
     def getUserByToken(token="null"):
         print(f"token: {token}")
-        if(token):
+        if(token and len(token)>10):
             query = DB.instance.Query(f"SELECT id,firstName,lastName,email,phone,birthday,gender,avatar,auth,token FROM users WHERE token='{token}';",rows=1)
             if(query):
                 return User(id=query[0],fn=query[1],ln=query[2],email=query[3],ph=query[4],birth=query[5],gender=query[6],avatar=query[7],auth=query[8],token=token)
@@ -53,7 +53,7 @@ class User:
     def Guest():
         return User("GUEST","-1","GUEST","","","","","","https://w7.pngwing.com/pngs/717/24/png-transparent-computer-icons-user-profile-user-account-avatar-heroes-silhouette-black-thumbnail.png","")
     
-    @staticmethod
+    @staticmethod 
     def Login(email,password):
         newToken = GenerateString(14)
         query =  DB.instance.Query(f"SELECT id FROM users WHERE email='{email}' and password='{password}';")

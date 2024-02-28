@@ -1,5 +1,5 @@
-function render(bool, ret){
+function render(bool, ret , Else=""){
     if(bool)
         return ret
-    return ""
+    return Else
 }

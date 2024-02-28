@@ -1,5 +1,3 @@
-if(location.pathname.indexOf("loginin")>=0){location.replace("login")}
-let data = JSON.parse(document.getElementById("data").innerHTML)
 
 document.title = "התחברות"
 document.getElementById("root").innerHTML += /*html*/`
@@ -8,7 +6,6 @@ document.getElementById("root").innerHTML += /*html*/`
 
     <div id="Login_Page">
         <img src="static/img/login.jpg" alt="login image" class="login__img">
-
         <div class="login__form">
             <h1 class="login__title">Login</h1>
             <div class="login__content">
@@ -61,8 +58,8 @@ function showPass(){
 function loginHandler(){
     const email = document.getElementById("login-email").value
     const password  = document.getElementById("login-pass").value
-    const token  = document.cookie["token"] || data.user.token || "-1null"
-    POST("/loginin",{email:email,password:password,token:token},(res)=>{
+    POST("/loginin",{email:email,password:password},(res)=>{
+        console.log(res)
         if(res.status == 200){
             let date = new Date();
             date.setTime(date.getTime() + (10*24*60*60*1000));

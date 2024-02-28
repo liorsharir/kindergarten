@@ -21,6 +21,7 @@
   padding: 0;
   margin: 0;
 }
+div,header,nav,main,ul,menu,footer{height: max-content}
 
 body,
 input,

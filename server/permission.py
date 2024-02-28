@@ -1,5 +1,5 @@
 from flask import Request, render_template
-from Tools import JSON
+from Tools import margeJson
 from server.User import User
 
 
@@ -9,9 +9,9 @@ def ResponsePage(request:Request,page=[],comps=[],scripts=[],auth=[],kickout=["4
     for item in sendData: 
         send.append(item)
     if user.isAuth(auth) : 
-        return render_template('index.html',page=page ,scripts=scripts ,components = comps, data=JSON(send))
+        return render_template('index.html',page=page ,scripts=scripts ,components = comps, data=margeJson(send))
     else                 : 
-        return render_template('index.html',page=kickout)
+        return render_template('index.html',page=kickout , data="{}")
 
 
 

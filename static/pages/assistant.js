@@ -1,23 +1,31 @@
-const data = JSON.parse(document.getElementById("data").innerText)
-
 document.title = "סייעות"
 document.getElementById("root").innerHTML = /*html*/`
-    <link rel="stylesheet" type="text/css" href="static/css/assistants.css"/>
-    ${Header(data)}
+    ${Header()}
     <main>
-        <div id="assistants-container">
-            <div id="addAssistantsActions" style="display:none"></div>
-            <div id="assistants-list">
-                <h1>סייעות גן אלה :</h1> <br>
-                <div id="assistantsComponents">
-                    ${AssistantsItem(data.assistants)}
-                    <div id="AddAssistantBtn" class="assistant-item" onclick="AddAssistantClick()">
-                        <div id="icon-Plus">+</div>
-                        <div>הוספת סייעת חדשה</div>
-                    </div>
-                </div>
+        ${render(data.user.auth == "KINDERGARTNER",/*html*/`
+            <h1 id="assistantH1" class="h1_1"><u>סייעות גן אלה :</u></h1>
+            <div id="addAssistantActions" class="actions_1"></div>
+            <div id="assistantList" class="list_1">
+                <div id="assistantComponents" class="item_components_1">
+                    ${AssistantItem(data.assistants)} 
+                </div> 
             </div>
+        `)}
+
+
+        ${render(data.user.auth == "ASSISTANCE",/*html*/`
+            <h1></h1>
+            <div id="form_freeDay">???</div>
+        `)}
+
+
+
+
+        <div id="calendarAsistance">
+            <h1></h1>
+            ${CalendarAsistance()}
         </div>
+
     </main>
 `
 
@@ -25,11 +33,3 @@ document.getElementById("root").innerHTML = /*html*/`
 
 
 
-function AddAssistantClick(){
-    let addAssistantsActions = document.getElementById("addAssistantsActions")
-    let assistantsList = document.getElementById("assistants-list")
-    addAssistantsActions.style.width = "40%"
-    assistantsList.style.width = "60%"
-    addAssistantsActions.style.display = "block"
-    addAssistantsActions.innerHTML = AddChildren()
-}
