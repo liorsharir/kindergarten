@@ -11,7 +11,11 @@
     --nav2_display              : none;
     --nav_burger              : none;
 }
-
+#numberOfMsg{
+    position: absolute;
+    top:-5px;
+    right:-8px;
+}
 
 .header{
     display: grid;
@@ -73,7 +77,13 @@
     width: 70px;
     box-shadow: 2px 2px 2px 0px #00000029;
 }
+.avatar_img:hover{
+    cursor: pointer;
+    height: 72px;
+    width: 72px;
+}
 .avatar_notifications_img{
+    position: relative;
     margin :0px 25px;
     height: 30px;
     width: 30px;
@@ -94,6 +104,12 @@
     height:max-content;
 
 }
+
+.header_avatar_name>#hello:hover{
+    cursor: pointer;
+    color:rgb(24, 43, 42);
+}
+
 #logout{
     height: 40%;
     width: 80%;
@@ -130,11 +146,26 @@
 .header_nav_burger{
     display: var(--nav_burger);
     grid-column: var(--header_nav_col);
-    justify-content:  var(--header_nav_justify);
+    justify-content:  center;
+    align-items:  center;
     height: 90%;
     font-size: var(--fontSize);
+    width: 80px;
+    height:50px;
+    
 }
 
+.header_nav_burger:hover{
+    font-size: medium;
+    text-decoration: none; 
+    color: #333; 
+    padding: 10px 10px; 
+    border-radius: 5px; 
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    background-color: rgba(83, 68, 178, 0.1);
+
+}
 
 .header_nav_2{
     display: var(--nav2_display);
@@ -147,11 +178,29 @@
 }
 
 
+.burger_nav{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    font-size: large;
+    width: 100%;
+
+}
 
 
-
-
-
+.burger_nav li , .burger_nav li a{
+    font-size: medium;
+    width: 100%;
+    text-decoration: none; 
+    color: #333; 
+    padding: 10px 10px; 
+    border-radius: 5px; 
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+.burger_nav li:hover , .burger_nav li a:hover {
+    background-color: rgba(83, 68, 178, 0.1);
+}
 
 
 @media (max-width: 8500px) {

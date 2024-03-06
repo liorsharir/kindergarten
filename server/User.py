@@ -1,7 +1,7 @@
 from flask import Request
 from enum import Enum
 from .database import DB
-from Tools import GenerateString
+from tools import GenerateString
 
 class Authorization(Enum):
     GUEST         = "GUEST"
@@ -35,7 +35,13 @@ class User:
     def toJson(self)        : return f'"user":{{"id":"{self.id}","auth":"{self.auth}","firstName":"{self.firstName}","lastName":"{self.lastName}","name":"{self.getFullName()}","birthday":"{self.birthday}","phone":"{self.phone}","email":"{self.email}","gender":"{self.gender}","avatar":"{self.avatar}","token":"{self.token}"}}'
         
         
-        
+    def changeImage(self,path):
+        if(id!="-1"):
+            query = DB.instance.Query(f"UPDATE users SET avatar='{path}' WHERE id='{self.id}' LIMIT 1;")
+            if(query):
+                return True
+        return False
+
 
     @staticmethod
     def getUserByToken(token="null"):
@@ -45,6 +51,22 @@ class User:
             if(query):
                 return User(id=query[0],fn=query[1],ln=query[2],email=query[3],ph=query[4],birth=query[5],gender=query[6],avatar=query[7],auth=query[8],token=token)
         return User.Guest()
+        
+   
+    @staticmethod
+    def getUserByID(id="-1"):
+        print(f"id: {id}")
+        if(id!="-1"):
+            query = DB.instance.Query(f"SELECT id,firstName,lastName,email,phone,birthday,gender,avatar,auth,token FROM users WHERE id='{id}';",rows=1)
+            if(query):
+                return User(id=query[0],fn=query[1],ln=query[2],email=query[3],ph=query[4],birth=query[5],gender=query[6],avatar=query[7],auth=query[8])
+        return User.Guest()
+        
+   
+        
+    @staticmethod
+    def getFullNameById(id="-1"):
+        return User.getUserByID(id).getFullName()
         
    
         

@@ -13,20 +13,21 @@ document.getElementById("root").innerHTML = /*html*/`
         `)}
 
 
-        ${render(data.user.auth == "ASSISTANCE",/*html*/`
-            <h1></h1>
-            <div id="form_freeDay">???</div>
-        `)}
 
 
 
 
-        <div id="calendarAsistance">
-            <h1></h1>
-            ${CalendarAsistance()}
-        </div>
 
     </main>
+
+    ${render(data.user.auth == "ASSISTANCE",/*html*/`
+        ${FreeDay()}
+    `)}
+
+    ${render(data.user.auth == "KINDERGARTNER",/*html*/`
+        ${CalendarAsistance()}
+    `)}
+
 `
 
 

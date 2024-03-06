@@ -12,11 +12,11 @@ function AddAssistant(index){
             <div id="AddAssistantExit"   class="Exit"  onclick="ExitActionAssistant()">X</div>
             <div id="formAssistant"  class="form_add">
                 <div id="assistantData" class = "form_data">
-                    <label >ת"ז </label>        <input type="text" id="assistantId" value="${assistant.id}"       disable="${Number.isInteger(index)}"  /> 
+                    <label >ת"ז </label>        <input type="text" id="assistantId" value="${assistant.id.substring(1)}"       disable="${Number.isInteger(index)}"  /> 
                     <label>שם פרטי</label>      <input type="text" id="firstName"   value="${assistant.firstName}" /> 
                     <label>שם משפחה</label>     <input type="text" id="lastName"    value="${assistant.lastName}"  /> 
                     <label>תאריך לידה</label>   <input type="date" id="birthday"    value="${assistant.birthday}"  />
-                    <label>email</label>        <input type="email" id="email"      value="${assistant.email}"  />
+                    <label>email</label>        <input type="email" id="email"       value="${assistant.email}"  />
                     <label>סיסמה</label>        <input type="password" id="password" value="${assistant.password}"  />
                     <label>מין</label>            
                     <select id="assistantGender" class="genderSelect">
@@ -24,7 +24,7 @@ function AddAssistant(index){
                         <option value="male">male</option>>
                     </select>
                 </div>
-                <div id="assistantImgContainer"  class="ImgContainer"  onclick="changeImg()">
+                <div id="assistantImgContainer"  class="ImgContainer"  onclick="changeImg('${assistant.id}')">
                     <img id="assistantImg" src="${assistant.avatar}" alt="Assistant_img"/>
                 </div>
             </div>
@@ -69,7 +69,7 @@ function addAssistantHandler(type){
 function deleteAssistantHandler(){
     let answer = confirm("האם את בטוחה שכדאי למחוק את הסייעת :_(")
     if(answer){
-        POST("/removeAssistant",{assistantId: document.getElementById("assistantId").value} ,(respone)=>{
+        POST("/removeAssistant",{assistantId: 'i'+document.getElementById("assistantId").value} ,(respone)=>{
             if(respone.status == 200)
                 location.reload()
             else
@@ -78,6 +78,39 @@ function deleteAssistantHandler(){
     }
 }
 
-function changeImg(){
-    
+function changeImg(userID){
+    PopUp("העלאת תמונה","" ,()=>/*html*/`
+        <input type="file" id="ImgUpload" accept="image/png, image/jpeg">
+        <button onclick="uploadImag('${userID}')">בחר</button>
+    `)
+}
+
+function uploadImag(userID){
+    console.log("assistantID",userID)
+    let assistantImg = document.getElementById("assistantImg")
+    let assistantItem = document.getElementById("img"+userID)
+
+
+    var file = document.getElementById('ImgUpload').files[0];
+    var formData = new FormData();
+    formData.append('image', file);
+    formData.append('userID', userID);
+    console.log(userID)
+
+    fetch('/uploadUserImg', {
+        method: 'POST',
+        body: formData
+    })
+    .then(res => res.json())
+    .then(response => {
+        if(response.status == 200){
+            assistantImg.src = response.path 
+            assistantItem.src = response.path 
+            alert("התמונה שונתה בהצלחה!")
+        }
+        else{
+            alert("ישנה בעיה בהעלאת התמונה")
+        }
+    })
+
 }

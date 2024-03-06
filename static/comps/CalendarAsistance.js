@@ -1,6 +1,0 @@
-function CalendarAsistance(){
-
-    return /*html*/`
-        
-    `
-}

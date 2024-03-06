@@ -1,8 +1,9 @@
+if(location.pathname!="/login")
+    location.replace("/login")
 
 document.title = "התחברות"
-document.getElementById("root").innerHTML += /*html*/`
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="static/css/login.css"/>
+document.getElementById("loginRoot").innerHTML += /*html*/`
+
 
     <div id="Login_Page">
         <img src="static/img/login.jpg" alt="login image" class="login__img">

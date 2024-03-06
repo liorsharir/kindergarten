@@ -1,13 +1,23 @@
 from flask import Request, render_template
-from Tools import margeJson
+from tools import margeJson
 from server.User import User
+from server.Actions     import Actions
 
+Action = Actions()
 
-def ResponsePage(request:Request,page=[],comps=[],scripts=[],auth=[],kickout=["404.js"],sendData=[]):
+def ResponsePage(request:Request,page=[],comps=[],scripts=[],auth=[],dataByAuth=[["",[]]] ,kickout=["404.js"],sendData=[]):
     user = User.getUserByToken(request.cookies.get('token'))
     send = [user.toJson()]
+    if(user.id != "-1"):
+        send.append(Action.getAllMessageById(user.id))
     for item in sendData: 
         send.append(item)
+        
+    for i in dataByAuth:
+        if user.isAuth(i[0]) :
+            for item in i[1]: 
+                send.append(item)     
+        
     if user.isAuth(auth) : 
         return render_template('index.html',page=page ,scripts=scripts ,components = comps, data=margeJson(send))
     else                 : 

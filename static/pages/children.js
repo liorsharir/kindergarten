@@ -1,4 +1,6 @@
 document.title = "ילדים"
+
+
 document.getElementById("root").innerHTML = /*html*/`
     ${Header()}
     <main>

@@ -8,22 +8,29 @@
     <link rel="stylesheet" type="text/css" href="static/css/aboutUs.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/header.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/home.css"/>
-
+    <link rel="stylesheet" type="text/css" href="static/css/calendarAssistant.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/calendar.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/popup.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="static/css/login.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/alertLib.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/tableLib.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/chid_assistant.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/chid_assistant_add.css"/>
 </head>
 <body>
     <div id="root" class=""></div>
+    <div id="loginRoot" style="display=none;" class=""></div>
 
     <script>
         let dataJson = "{{data}}"
-        let data = {}
+        let data = dataJson.replaceAll("&#34;",'"')
         try{
-            data = JSON.parse(dataJson.replaceAll("&#34;",'"'));
+            data = JSON.parse(data);
             console.log("data:",data)
         }
         catch{
-            data = {}
+            console.log("dataJson:",data)
             console.log("JSON NOT VALID (index.html)")
         }
     </script>
@@ -36,10 +43,12 @@
     <script src="static/lib/jquery.js"></script>
     <script src="static/lib/http.js"></script>
     <script src="static/lib/alert.js"></script>
+    <script src="static/lib/dom.js"></script>
+
+
 
     <script src="static/scripts/router.js"></script>
-    <script src="static/scripts/index.js"></script>
-
+    <script src="static/scripts/time.js"></script>
 
     {% for script in scripts %}
         <script src="static/scripts/{{ script }}"></script>
@@ -52,5 +61,7 @@
     {% for p in page %}
         <script src="static/pages/{{ p }}"></script>
     {% endfor %}
+
+    <script src="static/scripts/index.js"></script>
 </body>
 </html>

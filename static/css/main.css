@@ -27,6 +27,12 @@ body{
 }
 
 
-
 .red{background-color: red;}
 .green{background-color: green;}
+
+
+@media (min-width: 2000px) {
+    body{
+        width: 70vw;
+    }
+}

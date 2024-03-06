@@ -1,18 +1,18 @@
 from .database import DB 
 from .User import User 
-from Tools import createJsonByQueryResult 
+
 
 class Actions:
     def GetAllChildern(self):
-        children = DB.instance.Query(f"SELECT id,firstName,lastName,birthday,motherName,motherEmail,motherPhone,fatherName,fatherEmail,fatherPhone,medicalInfo,gender From children;")
+        children = DB.instance.Query(f"SELECT id,firstName,lastName,birthday,motherName,motherEmail,motherPhone,fatherName,fatherEmail,fatherPhone,medicalInfo,gender,image From children;")
         json = '"children":['
         if(children) :
-            for item in children:   json += f'{{"id":"{item[0]}","firstName":"{item[1]}","lastName":"{item[2]}","name":"{item[1]} {item[2]}","birthday":"{item[3]}","motherName":"{item[4]}","motherEmail":"{item[5]}","motherPhone":"{item[6]}","fatherName":"{item[7]}","fatherEmail":"{item[8]}","fatherPhone":"{item[9]}","medicalInfo":"{item[10]}","gender":"{item[11]}"}}'
+            for item in children:   json += f'{{"id":"{item[0]}","firstName":"{item[1]}","lastName":"{item[2]}","name":"{item[1]} {item[2]}","birthday":"{item[3]}","motherName":"{item[4]}","motherEmail":"{item[5]}","motherPhone":"{item[6]}","fatherName":"{item[7]}","fatherEmail":"{item[8]}","fatherPhone":"{item[9]}","medicalInfo":"{item[10]}","gender":"{item[11]}","image":"{item[12]}"}}'
         json += ']'
         return json
         
     def AddChildern(self,data):
-        query = DB.instance.Query(f"INSERT INTO children (id,firstName,lastName,birthday,gender,motherName,motherEmail,motherPhone,fatherName,fatherEmail,fatherPhone,MedicalInfo,image) VALUES ('{data['childId']}','{data['firstName']}','{data['lastName']}','{data['birthday']}','{data['gender']}','{data['name_mom']}','{data['mail_mom']}','{data['phone_mom']}','{data['name_dad']}','{data['mail_dad']}','{data['phone_dad']}','{data['MedicalData']}','{data['childImg']}');")
+        query = DB.instance.Query(f"INSERT INTO children (id,firstName,lastName,birthday,gender,motherName,motherEmail,motherPhone,fatherName,fatherEmail,fatherPhone,MedicalInfo,image) VALUES ('i{data['childId']}','{data['firstName']}','{data['lastName']}','{data['birthday']}','{data['gender']}','{data['name_mom']}','{data['mail_mom']}','{data['phone_mom']}','{data['name_dad']}','{data['mail_dad']}','{data['phone_dad']}','{data['MedicalData']}','{data['childImg']}');")
         if query: return True
         else    : return False
     
@@ -53,19 +53,42 @@ class Actions:
         if query: return True
         else    : return False
         
-    def getAllEvents(self):
-        pass
-    def AddEvent(self):
-        pass
-    def RemoveEvent(self):
-        pass
-    def UpdateEvent(self):
-        pass
+   
+    def getAllMessageById(self,id):
+        messages =  DB.instance.Query(f"SELECT id,fromID,toID,confirm,body,isRead,date,freeDay From messages fromName WHERE  fromID='{id}' or toID='{id}'")
+
+        
+        json = '"messages":['
+        if(messages) :
+            for item in messages:   
+                fromName = User.getFullNameById(item[1])
+                toName   = User.getFullNameById(item[2])
+                json += f'{{"fromName":"{fromName}","toName":"{toName}","id":"{item[0]}","from":"{item[1]}","to":"{item[2]}","confirm":"{item[3]}","body":"{item[4]}","read":"{item[5]}","date":"{item[5]}","freeDay":"{item[6]}"}}'
+        json += '],'
+        return json
+   
+    def send_message(self, fromId , toId , body="",freeDay=""):
+        query = DB.instance.Query(f"INSERT INTO messages (fromID,toID,body,freeDay) VALUES ('{fromId}','{toId}','{body}','{freeDay}');")
+        if query: return True
+        else    : return False
+    
+    def confirm_message(self ,msgId, confirm):
+        query = DB.instance.Query(f"UPDATE messages SET confirm='{confirm}' WHERE id='{msgId}' LIMIT 1 ;")
+        if query: return True
+        else    : return False
+        
+    def read_message(self ,msgId):
+        query = DB.instance.Query(f"UPDATE messages SET isRead='true' WHERE id='{msgId}' LIMIT 1 ;")
+        if query: return True
+        else    : return False
     
     
-    def SendToMail(self,context , mails:list):
-        pass
-    
+        
+    def changeChildren(self ,chidID,path):
+        print(path)
+        query = DB.instance.Query(f"UPDATE children SET image='{path}' WHERE id='{chidID}' LIMIT 1 ;")
+        if query: return True
+        else    : return False
     
     
     

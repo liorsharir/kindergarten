@@ -1,9 +1,11 @@
 function AssistantItem(assistant){
     return /*html*/`
         ${loop(assistant.length ,i=>{
+            if(!assistant[i].avatar) assistant[i].avatar="static/img/genericAssistant.png"
+
             return(/*html*/`
                 <div id="assistant${i}" class="item" onclick="assistantClick(${i})">
-                    <div class="item_image pointer"><img src="${assistant[i].avatar}" alt="assistantImg"/></div>                
+                    <div class="item_image pointer"><img src="${assistant[i].avatar}" id="img${assistant[i].id}" alt="assistantImg"/></div>                
                     <div class="item_name">${assistant[i].name}</div>                
                 </div>
             `)

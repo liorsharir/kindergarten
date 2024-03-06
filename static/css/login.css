@@ -1,5 +1,6 @@
 /*--------- GOOGLE FONTS ---------*/
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+
 /*--------- VARIABLES CSS ---------*/
 :root {
   /*--------- Colors --------*/
@@ -16,35 +17,34 @@
 }
 
 /*--------- BASE ---------*/
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-div,header,nav,main,ul,menu,footer{height: max-content}
 
-body,
-input,
-button {
+#Login_Page div,
+#Login_Page header,
+#Login_Page nav,
+#Login_Page main,
+#Login_Page ul,
+#Login_Page menu,
+#Login_Page footer{height: max-content}
+
+
+#Login_Page input,
+#Login_Page button {
   font-size: var(--normal-font-size);
   font-family: var(--body-font);
 }
 
-body {
-  color: var(--white-color);
-}
 
-input,
-button {
+#Login_Page input,
+#Login_Page button {
   border: none;
   outline: none;
 }
 
-a {
+#Login_Page a {
   text-decoration: none;
 }
 
-img {
+#Login_Page img {
   max-width: 100%;
   height: auto;
 }
@@ -59,14 +59,14 @@ img {
   align-items: center;
   justify-content: center;
 }
-.login__img {
+#Login_Page .login__img {
   position: absolute;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
 }
-.login__form {
+#Login_Page .login__form {
 
   position: relative;
   background-color: hsla(0, 0%, 10%, 0.1);
@@ -76,13 +76,13 @@ img {
   border-radius: 1rem;
   backdrop-filter: blur(8px);
 }
-.login__title {
+#Login_Page .login__title {
   text-align: center;
   font-size: var(--h1-font-size);
   font-weight: var(--font-medium);
   margin-bottom: 2rem;
 }
-.login__content, .login__box {
+#Login_Page .login__content, .login__box {
   display: grid;
 }
 .login__content {

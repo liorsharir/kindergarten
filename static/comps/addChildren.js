@@ -1,17 +1,18 @@
 function AddChildren(index){
-    let tempChildrenImag = "https://media.npr.org/assets/img/2013/03/11/istock-4306066-baby_custom-aee07650b312c1f240125b669c2aa92a7d36e73b-s1100-c50.jpg"
     let child;
     if(index != undefined)
         child = data.children[index]
     else
-        child = {id:"",firstName:"",lastName:"",birthday:"",fatherName:"",fatherEmail:"",fatherPhone:"",motherName:"",motherEmail:"",motherPhone:"",medicalInfo:""}
+        child = {id:"",image:"static/img/genericChild.png",firstName:"",lastName:"",birthday:"",fatherName:"",fatherEmail:"",fatherPhone:"",motherName:"",motherEmail:"",motherPhone:"",medicalInfo:""}
+
+
 
     return /*html*/`
         <div id="AddChildren" class="add_item">
             <div id="AddChildrenExit" class="Exit" onclick="ExitActionChildren()">X</div>
             <div id="formChid" class="form_add">
                 <div id="childData" class = "form_data">
-                    <label >ת"ז </label>        <div class="validationInp"> <input type="text" id="childId"   class="withValidation Size1"  value="${child.id}"    disable="${Number.isInteger(index)}"     />                <span id="validation_childId"></span>   </div>
+                    <label >ת"ז </label>        <div class="validationInp"> <input type="text" id="childId"   class="withValidation Size1"  value="${child.id.substring(1)}"    disable="${Number.isInteger(index)}"     />                <span id="validation_childId"></span>   </div>
                     <label>שם פרטי</label>      <div class="validationInp"> <input type="text" id="firstName" class="withValidation Size1"  value="${child.firstName}" />                                                     <span id="validation_firstName"></span> </div>
                     <label>שם משפחה</label>     <div class="validationInp"> <input type="text" id="lastName"  class="withValidation Size1"  value="${child.lastName}"  />                                                     <span id="validation_lastName"></span>  </div>
                     <label>תאריך לידה</label>   <div class="validationInp"> <input type="date" id="birthday"  class="withValidation Size1"  value="${child.birthday}"  />                                                     <span id="validation_birthday"></span>  </div>
@@ -21,8 +22,8 @@ function AddChildren(index){
                         <option value="female">female</option>>
                     </select>
                 </div>
-                <div id="childImgContainer" class="ImgContainer" onclick="changeImg()">
-                    <img id="childImg"  src="${tempChildrenImag}" alt="child_img"/>
+                <div id="childImgContainer" class="ImgContainer" onclick="changeImg('${child.id}')">
+                    <img id="childImg"  src="${child.image}" alt="child_img"/>
                 </div>
             </div>
             <div id="parents">
@@ -72,7 +73,8 @@ function addChildrenHandler(type){
     if(resultValidation){
         POST(`/${type}`,resultValidation,(respone)=>{
             if(respone.status == 200)
-                location.reload()
+                Alert("הילד נוסף בהצלחה","Good",()=>location.reload())
+                
             else
                 alert("אין לך הרשאה לפעולה זו")
         })
@@ -80,18 +82,51 @@ function addChildrenHandler(type){
 }
 
 function deleteChildrenHandler(){
-    let answer = confirm("האם את בטוחה שכדאי למחוק את הילד :_(")
-    if(answer){
-        POST("/removeChildren",{childId: document.getElementById("childId").value} ,(respone)=>{
-            if(respone.status == 200)
-                location.reload()
-            else
-                alert("אין לך הרשאה לפעולה זו")
-        })
-    }
+    confirm("האם את בטוחה שכדאי למחוק את הילד :_(" ,(answer)=>{
+        if(answer){
+            POST("/removeChildren",{childId: 'i'+document.getElementById("childId").value} ,(respone)=>{
+                if(respone.status == 200)
+                    location.reload()
+                else
+                    alert("אין לך הרשאה לפעולה זו")
+            })
+        }
+    })
+   
 }
 
 
-function changeImg(){
-    
+function changeImg(childID){
+    PopUp("העלאת תמונה","" ,()=>/*html*/`
+        <input type="file" id="ImgUpload" accept="image/png, image/jpeg">
+        <button onclick="uploadImag('${childID}')">בחר</button>
+    `)
+}
+
+function uploadImag(childID){
+    console.log("childID",childID)
+    let childImg = document.getElementById("childImg")
+    let childItem = document.getElementById("img"+childID)
+
+    var file = document.getElementById('ImgUpload').files[0];
+    var formData = new FormData();
+    formData.append('image', file);
+    formData.append('chidID', childID);
+
+    fetch('/uploadChildrenImg', {
+        method: 'POST',
+        body: formData
+    })
+    .then(res => res.json())
+    .then(response => {
+        if(response.status == 200){
+            childImg.src = response.path 
+            childItem.src = response.path 
+            Alert("התמונה שונתה בהצלחה!")
+        }
+        else{
+            alert("ישנה בעיה בהעלאת התמונה")
+        }
+    })
+
 }

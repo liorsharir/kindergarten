@@ -68,6 +68,8 @@ main{
     margin-bottom: 20px;
     box-shadow: 2px 2px 4px 1px #00000029;
     border-radius: 8px;
+    position: relative;
+
 }
 
 .item:hover{
@@ -79,7 +81,7 @@ main{
     display: flex;
     justify-content: center;
     /* border-radius:  20px; */
-    height: 85%;
+    height: 80%;
 }
 .item_name{
     display: flex;
@@ -87,14 +89,16 @@ main{
     align-items: center;
     font-size: large;
     height: 10%;
+    margin-top: 10px;
 }
+
 
 .item_gender{
     width: 15px;
     height: 15px;
     opacity: 80%;
-    position: relative;
-    top:30px;
+    position: absolute;
+    top:5px;
     right: 10px;
 }
 

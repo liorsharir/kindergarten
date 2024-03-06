@@ -13,6 +13,8 @@ function validation(type,arr){
     }
     else if(type == "assistant")
         return validation_assistant(obj);
+    else if(type == "assistantEvent")
+        return validation_assistant_Event(obj);
     else if(type == "event")
         return validation_Event(obj);
     return false
@@ -73,15 +75,43 @@ function validation_assistant(obj){
         assistantId  :   obj["assistantId"].value,
         firstName    :   obj["firstName"].value,
         lastName     :   obj["lastName"].value,
-        email     :   obj["email"].value,
+        email        :   obj["email"].value,
         password     :   obj["password"].value,
         birthday     :   obj["birthday"].value,
         gender       :   obj["assistantGender"].value,
         avatar       :   obj["assistantImg"].src,
     }
-    return false;
-
 }   
+
+function validation_assistant_Event(obj){
+    nameOfAssistant = data.assistants.find(a=>a.id==obj["assistantOfEvent"].value)
+    return {
+        eventObj:{
+            summary: "any",
+            location:  'לא צוין מיקום',
+            description: `${obj["bodyOfEvent"].value} <br/>  סייעת: ${nameOfAssistant.name}`,
+            start: {
+                dateTime: `${obj['dateOfEvent'].value}T${obj["startHourOfEvent"].value}:00+02:00`,
+                timeZone: "Asia/Jerusalem"
+            },
+            end: {
+                dateTime: `${obj['dateOfEvent'].value}T${obj["endHourOfEvent"].value}:00+02:00`,
+                timeZone: "Asia/Jerusalem"
+            },
+            recurrence: [],
+            attendees : [],
+            reminders : {
+                useDefault: false,
+                overrides:  [
+                    {method: 'email', minutes: 24 * 60},
+                    {method: 'popup', minutes: 10},
+                ]
+            }
+        },
+        assistantOfEvent : obj["assistantOfEvent"].value
+    }
+}   
+
 
 function validation_Event(obj){
     return true
