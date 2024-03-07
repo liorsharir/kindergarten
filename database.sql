@@ -16,7 +16,6 @@ create Table users(
 );
 
 
-
 create Table children(
     id          varchar(15),
     firstName   varchar(255),
@@ -51,16 +50,11 @@ create Table messages(
 
 
 
-
-
 insert INTO users (id,password, email,firstName,lastName, phone,birthday, gender,token,avatar,auth,notifications) Values
-("i15488950","123123","user1","שושי" ,"שושנה" ,"0505055555"   ,"" ,"female","","static/img/genericKINDERGARTNER.png","KINDERGARTNER",0 ),
-("i15488951","123123","user2","רחל"  ,"רחלה"  ,"0505055555"   ,"" ,"female","","","ASSISTANCE",0 ),
-("i15488952","123123","user3","אלה"  ,"אל"    ,"0505055555"   ,"" ,"female","","","ASSISTANCE",0 ),
-("i15488953","123123","user4","ירדן" ,"ירדנה" ,"0505055555"   ,"" ,"female","","","ASSISTANCE",0 );
-
-
-
+("i15488950","123123","user1@gmail.com","שושי" ,"שושנה" ,"0505055555"   ,"" ,"female","","static/img/genericKINDERGARTNER.png","KINDERGARTNER",0 ),
+("i15488951","123123","user2@gmail.com","רחל"  ,"רחלה"  ,"0505055555"   ,"" ,"female","","","ASSISTANCE",0 ),
+("i15488952","123123","user3@gmail.com","אלה"  ,"אל"    ,"0505055555"   ,"" ,"female","","","ASSISTANCE",0 ),
+("i15488953","123123","user4@gmail.com","ירדן" ,"ירדנה" ,"0505055555"   ,"" ,"female","","","ASSISTANCE",0 );
 
 
 
