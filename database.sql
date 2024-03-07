@@ -51,10 +51,10 @@ create Table messages(
 
 
 insert INTO users (id,password, email,firstName,lastName, phone,birthday, gender,token,avatar,auth,notifications) Values
-("210110110","123123","user1@gmail.com","שושי" ,"שושנה" ,"0505055555"   ,"" ,"female","","static/img/genericKINDERGARTNER.png","KINDERGARTNER",0 ),
-("220220220","123123","user2@gmail.com","רחל"  ,"רחלה"  ,"0505055555"   ,"" ,"female","","static/img/assistant1.jpeg","ASSISTANCE",0 ),
-("230330330","123123","user3@gmail.com","אלה"  ,"אל"    ,"0505055555"   ,"" ,"female","","static/img/assistant2.jpeg","ASSISTANCE",0 ),
-("240440440","123123","user4@gmail.com","ירדן" ,"ירדנה" ,"0505055555"   ,"" ,"female","","static/img/assistant2.jpeg","ASSISTANCE",0 );
+("210110110","123123","user1@gmail.com","שושי" ,"לוי" ,"0505055555"   ,"" ,"female","","static/img/genericKINDERGARTNER.png","KINDERGARTNER",0 ),
+("220220220","123123","user2@gmail.com","רחל"  ,"גולן"  ,"0505055555"   ,"" ,"female","","static/img/assistant1.jpeg","ASSISTANCE",0 ),
+("230330330","123123","user3@gmail.com","אלה"  ,"אופירה"    ,"0505055555"   ,"" ,"female","","static/img/assistant2.jpeg","ASSISTANCE",0 ),
+("240440440","123123","user4@gmail.com","ירדן" ,"ביתן" ,"0505055555"   ,"" ,"female","","static/img/assistant2.jpeg","ASSISTANCE",0 );
 
 
 
