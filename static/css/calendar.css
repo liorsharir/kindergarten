@@ -1,0 +1,58 @@
+:root{
+    --rows : 2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+.selectDate{
+    width: 95%;
+    margin: 5px auto;
+}
+
+#addEvent{
+    width: 95%;
+    margin: 10px auto;
+}
+
+.calendarDay{
+    display: grid;
+    grid-template-rows:var(--rows);
+}
+
+
+#clanderBorder,
+#mainCalendar{
+    height: 600px;
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr ;
+    border: 1px solid;
+}
+#mainCalendar{
+    z-index: 99;
+    width: 95%;
+    margin: auto;
+}
+
+
+#clanderBorder{
+    width: 95%;
+    position: absolute;
+    z-index: 1;
+    left: 2.5%;
+}
+
+.calendarBorderDay{
+    border-left: 1px solid;
+    display: grid;
+    grid-template-rows:var(--rows);
+}
+.calendarBorderRow{
+    border: 1px solid;
+}
+
+
+
+
+.calendarHeader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
