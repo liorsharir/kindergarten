@@ -23,10 +23,11 @@ document.getElementById("root").innerHTML = /*html*/`
     ${render(data.user.auth == "ASSISTANCE",/*html*/`
         ${FreeDay()}
     `)}
-
-    ${render(data.user.auth == "KINDERGARTNER",/*html*/`
-        ${CalendarAsistance()}
-    `)}
+    <div id="CalendarAsistanceContainer">
+        ${render(data.user.auth == "KINDERGARTNER",/*html*/`
+           ${CalendarAsistance()}
+        `)}
+    <div>
 
 `
 

@@ -1,10 +1,11 @@
 create Table users(
-    id        varchar(15),
+    id        int NOT NULL AUTO_INCREMENT,
+    userID    varchar(15),
     password  varchar(255),
     email     varchar(255),
     firstName varchar(255),
     lastName  varchar(255),
-    phone     varchar(10) ,
+    phone     varchar(20) ,
     birthday  varchar(255),
     gender    varchar(10) ,
     token     varchar(255) DEFAULT 'Null',
@@ -16,8 +17,10 @@ create Table users(
 );
 
 
+
 create Table children(
-    id          varchar(15),
+    id          int NOT NULL AUTO_INCREMENT,
+    childId     varchar(15),
     firstName   varchar(255),
     lastName    varchar(255),
     birthday    varchar(255),
@@ -50,19 +53,19 @@ create Table messages(
 
 
 
-insert INTO users (id,password, email,firstName,lastName, phone,birthday, gender,token,avatar,auth,notifications) Values
-("210110110","123123","user1@gmail.com","שושי" ,"לוי" ,"0505055555"   ,"" ,"female","","static/img/genericKINDERGARTNER.png","KINDERGARTNER",0 ),
-("220220220","123123","user2@gmail.com","רחל"  ,"גולן"  ,"0505055555"   ,"" ,"female","","static/img/assistant1.jpeg","ASSISTANCE",0 ),
-("230330330","123123","user3@gmail.com","אלה"  ,"אופירה"    ,"0505055555"   ,"" ,"female","","static/img/assistant2.jpeg","ASSISTANCE",0 ),
-("240440440","123123","user4@gmail.com","ירדן" ,"ביתן" ,"0505055555"   ,"" ,"female","","static/img/assistant3.jpeg","ASSISTANCE",0 );
+insert INTO users
+(userID,password,phone,email,firstName,lastName,birthday,gender,avatar,auth,notifications,token) Values
+("12345678","123123",'0505050501',"user1@gmail.com","שושי","שושנה","2000-03-02","female","static/img/genericKINDERGARTNER.png","KINDERGARTNER",0,""),
+("12345678","123123",'0505050502',"user2@gmail.com","רחלי","רוחלה","2000-03-02","female","static/img/genericAssistant.png","ASSISTANCE",0,"");
 
 
 
-insert INTO children (id,firstName,lastName,birthday,gender,motherName,motherEmail,motherPhone,fatherName,fatherEmail,fatherPhone,MedicalInfo,image) Values
-    ("201001001", "תמר"  , "רפאלי" , '2024-02-08',"female" ,"שושי","@@@@","055-555-5555","אסי","@@@","055-555-5555","","static/img/children1.jpeg"),
-    ("202002002", "מאי"  , "לוי" , '2024-02-08',"female" ,"רותי","@@@@","055-555-5555","דוד","@@@","055-555-5555","","static/img/children2.jpeg"),
-    ("203003003", "איציק" , "כהן" , '2024-02-08',"male" ,"יונית","@@@@","055-555-5555","יהונתן","@@@","055-555-5555","","static/img/children3.jpeg"),
-    ("205005005", "יובל" , "אופיר" , '2024-02-08',"male" ,"דליה","@@@@","055-555-5555","אביב","@@@","055-555-5555","","static/img/children4.jpeg");
+
+insert INTO children (childID,firstName,lastName,birthday,gender,motherName,motherEmail,motherPhone,fatherName,fatherEmail,fatherPhone,MedicalInfo,image) Values
+    ("999999991", "יוסי"   , "יוסף" , '2024-02-08',"female" ,"שושי"  ,"1M@gmail.com","055-515-5555","בוריס"  ,"1D@gmail.com","055-555-5551","אין מידע רלוונטי","static/img/genericChild.png"),
+    ("999999992", "מייק"   , "מק" , '2024-02-08',"female" ,"רותי"  ,"2M@gmail.com","055-525-5555","סרגיי"  ,"2D@gmail.com","055-555-5552","אין מידע רלוונטי","static/img/genericChild.png"),
+    ("999999993", "איציק" , "צחק" , '2024-02-08',"male"   ,"פטריק","3M@gmail.com","055-535-5555","ולדרמיר","3D@gmail.com","055-555-5553","אין מידע רלוונטי","static/img/genericChild.png"),
+    ("999999994", "יצחק" , "נצחק" , '2024-02-08',"male"   ,"פטריק","4M@gmail.com","055-545-5555","ולדרמיר","4D@gmail.com","055-555-5554","אין מידע רלוונטי","static/img/genericChild.png");
 
 
 

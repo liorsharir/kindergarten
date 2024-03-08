@@ -1,58 +1,68 @@
 from .database import DB 
 from .User import User 
+from flask import jsonify
+from tools import Print,allowed_file
+from werkzeug.utils import secure_filename
+import os
 
 
 class Actions:
     def GetAllChildern(self):
-        children = DB.instance.Query(f"SELECT id,firstName,lastName,birthday,motherName,motherEmail,motherPhone,fatherName,fatherEmail,fatherPhone,medicalInfo,gender,image From children;")
+        children = DB.instance.Query(f"SELECT id,firstName,lastName,birthday,motherName,motherEmail,motherPhone,fatherName,fatherEmail,fatherPhone,medicalInfo,gender,image,childID From children;")
         json = '"children":['
         if(children) :
-            for item in children:   json += f'{{"id":"{item[0]}","firstName":"{item[1]}","lastName":"{item[2]}","name":"{item[1]} {item[2]}","birthday":"{item[3]}","motherName":"{item[4]}","motherEmail":"{item[5]}","motherPhone":"{item[6]}","fatherName":"{item[7]}","fatherEmail":"{item[8]}","fatherPhone":"{item[9]}","medicalInfo":"{item[10]}","gender":"{item[11]}","image":"{item[12]}"}}'
+            for item in children:   json += f'{{"id":"{item[0]}","firstName":"{item[1]}","lastName":"{item[2]}","name":"{item[1]} {item[2]}","birthday":"{item[3]}","motherName":"{item[4]}","motherEmail":"{item[5]}","motherPhone":"{item[6]}","fatherName":"{item[7]}","fatherEmail":"{item[8]}","fatherPhone":"{item[9]}","medicalInfo":"{item[10]}","gender":"{item[11]}","image":"{item[12]}","childID":"{item[13]}"}}'
         json += ']'
         return json
-        
-    def AddChildern(self,data):
-        query = DB.instance.Query(f"INSERT INTO children (id,firstName,lastName,birthday,gender,motherName,motherEmail,motherPhone,fatherName,fatherEmail,fatherPhone,MedicalInfo,image) VALUES ('i{data['childId']}','{data['firstName']}','{data['lastName']}','{data['birthday']}','{data['gender']}','{data['name_mom']}','{data['mail_mom']}','{data['phone_mom']}','{data['name_dad']}','{data['mail_dad']}','{data['phone_dad']}','{data['MedicalData']}','{data['childImg']}');")
-        if query: return True
-        else    : return False
-    
-    def RemoveChildern(self,data):
-        query = DB.instance.Query(f"DELETE FROM children WHERE id='{data['childId']}';")
-        if query: return True
-        else    : return False
-    
-    def UpdateChildern(self,data):
-        query = DB.instance.Query(f"UPDATE children SET firstName='{data['firstName']}', lastName='{data['lastName']}', birthday='{data['birthday']}',gender='{data['gender']}', motherName='{data['name_mom']}', motherEmail='{data['mail_mom']}', motherPhone='{data['phone_mom']}', fatherName='{data['name_dad']}', fatherEmail='{data['mail_dad']}', fatherPhone='{data['phone_dad']}', MedicalInfo='{data['MedicalData']}', image='{data['childImg']}' WHERE id='{data['childId']}' LIMIT 1 ;")
-        if query: return True
-        else    : return False
-    
     
     def GetAllAssistans(self):
-        assitans =  DB.instance.Query(f"SELECT id,firstName,lastName,birthday,avatar,auth,phone,email From users WHERE auth='ASSISTANCE';")
+        assitans =  DB.instance.Query(f"SELECT id,firstName,lastName,birthday,avatar,auth,phone,email,userID,phone From users WHERE auth='ASSISTANCE';")
         json = '"assistants":['
         if(assitans) :
-            for item in assitans:   json += f'{{"id":"{item[0]}","firstName":"{item[1]}","lastName":"{item[2]}","name":"{item[1]} {item[2]}","birthday":"{item[3]}","avatar":"{item[4]}","auth":"{item[5]}","phone":"{item[6]}","email":"{item[7]}"}}'
+            for item in assitans:   json += f'{{"id":"{item[0]}","firstName":"{item[1]}","lastName":"{item[2]}","name":"{item[1]} {item[2]}","birthday":"{item[3]}","avatar":"{item[4]}","auth":"{item[5]}","phone":"{item[6]}","email":"{item[7]}","userID":"{item[8]}","phone":"{item[9]}"}}'
         json += ']'
         return json
     
+    def AddChildern(self,request):
+        data = request.form
+        query = DB.instance.Query(f"INSERT INTO children (childID,firstName,lastName,birthday,gender,motherName,motherEmail,motherPhone,fatherName,fatherEmail,fatherPhone,MedicalInfo,image) VALUES ('{data.get('childID')}','{data.get('firstName')}','{data.get('lastName')}','{data.get('birthday')}','{data.get('gender')}','{data.get('name_mom')}','{data.get('mail_mom')}','{data.get('phone_mom')}','{data.get('name_dad')}','{data.get('mail_dad')}','{data.get('phone_dad')}','{data.get('MedicalData')}','{self.UploadImgChild(request)}');")
+        if query: return True
+        else    : return False
+        
+    def AddAssistans(self,request):
+        data = request.form
+        query = DB.instance.Query(f"INSERT INTO users (phone,firstName,lastName,password,email,birthday,gender,auth,userID,avatar) VALUES ('{data.get('phone')}','{data.get('firstName')}','{data.get('lastName')}','{data.get('password')}','{data.get('email')}','{data.get('birthday')}','{data.get('gender')}','ASSISTANCE','{data.get('userID')}','{self.UploadImgAsistant(request)}');")
+        if query: return True
+        else    : return False     
+        
+    def UpdateChildern(self,request):
+        data = request.form
+        temp = f"image='{self.UploadImgAsistant(request)}'," if('image' in request.files) else " "
+        query = DB.instance.Query(f"UPDATE children SET {temp} childID='{data.get('childID')}', firstName='{data.get('firstName')}', lastName='{data.get('lastName')}', birthday='{data.get('birthday')}',gender='{data.get('gender')}', motherName='{data.get('name_mom')}', motherEmail='{data.get('mail_mom')}', motherPhone='{data.get('phone_mom')}', fatherName='{data.get('name_dad')}', fatherEmail='{data.get('mail_dad')}', fatherPhone='{data.get('phone_dad')}', MedicalInfo='{data.get('MedicalData')}' WHERE id='{data.get('id')}' LIMIT 1 ;")
+        if query: return True
+        else    : return False
+        
+    def UpdateAssistans(self,request):
+        data= request.form
+        temp = f"avatar='{self.UploadImgAsistant(request)}'," if('image' in request.files) else ""
+        query = DB.instance.Query(f"UPDATE users SET {temp} userID='{data.get('userID')}',phone='{data.get('phone')}',firstName='{data.get('firstName')}',lastName='{data.get('lastName')}',password='{data.get('password')}',email='{data.get('email')}',birthday='{data.get('birthday')}',gender='{data.get('gender')}' WHERE id='{data.get('id')}' LIMIT 1 ;")
+        if query: return True
+        else    : return False
+         
+    
+    def RemoveChildern(self,request):
+        data= request.get_json()
+        query = DB.instance.Query(f"DELETE FROM children WHERE id='{data['id']}';")
+        if query: return True
+        else    : return False
 
-    def AddAssistans(self,data):
-        query = DB.instance.Query(f"INSERT INTO users (id,firstName,lastName,password,email,birthday,gender,avatar,auth) VALUES ('{data['assistantId']}','{data['firstName']}','{data['lastName']}','{data['password']}','{data['email']}','{data['birthday']}','{data['gender']}','{data['avatar']}','ASSISTANCE');")
+    def RemoveAssistans(self,request):
+        data= request.get_json()
+        query = DB.instance.Query(f"DELETE FROM users WHERE id='{data['id']}' and auth='ASSISTANCE';")
         if query: return True
         else    : return False
         
-        
-    def RemoveAssistans(self,data):
-        query = DB.instance.Query(f"DELETE FROM users WHERE id='{data['assistantId']}' and auth='ASSISTANCE';")
-        if query: return True
-        else    : return False
-        
-        
-    def UpdateAssistans(self,data):
-        query = DB.instance.Query(f"UPDATE users SET id='{data['assistantId']}',firstName='{data['firstName']}',lastName='{data['lastName']}',password='{data['password']}',email='{data['email']}',birthday='{data['birthday']}',gender='{data['gender']}',avatar='{data['avatar']}' WHERE id='{data['assistantId']}' LIMIT 1 ;")
-        if query: return True
-        else    : return False
-        
+    
    
     def getAllMessageById(self,id):
         messages =  DB.instance.Query(f"SELECT id,fromID,toID,confirm,body,isRead,date,freeDay From messages fromName WHERE  fromID='{id}' or toID='{id}'")
@@ -92,4 +102,28 @@ class Actions:
     
     
     
+    def UploadImgAsistant(self,request): 
+        if 'image' not in request.files:    
+            return "static/img/genericAssistant.png"
+        file = request.files['image']
+        if file.filename == '':
+            return "not good"
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            save_path = os.path.join('static/img/', filename)
+            file.save(save_path)
+            return(save_path)
     
+    def UploadImgChild(self,request): 
+        if 'image' not in request.files:    
+            return "static/img/genericChild.png"
+        file = request.files['image']
+        if file.filename == '':
+            return "not good"
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            save_path = os.path.join('static/img/', filename)
+            file.save(save_path)
+            return(save_path)
+    
+   

@@ -1,77 +1,37 @@
+let tabelFrom = new Table(["נשלח בתאריך","מאת","תאריכים","גוף ההודעה","פעולות"])
+let tabelTo = new Table(["נשלח בתאריך","עבור","תאריכים","גוף ההודעה","נקרא","אושר"])
+
+// tabelTo.addRow(["a1","b1","c1","d1","e1","i1"])
+// tabelTo.addRow(["a2","b2","c2","d2","e2","i2"])
+// tabelTo.addRow(["a2","b2","c2","d2","e2","i2"])
+// tabelTo.addRow(["a2","b2","c2","d2","e2","i2"])
+
+
+data.messages.forEach(msg=>{
+    if(msg.from == data.user.id)
+        tabelFrom.addRow([msg.date,msg.fromName,msg.freeDay,msg.body,""])
+    if(msg.to == data.user.id)
+        tabelTo.addRow(["a","b","c","d","e","i"])
+})
 
 document.title = "הודעות"
 document.getElementById("root").innerHTML += /*html*/`
-        ${Header()}
+    ${Header()}
 
-        <div id="from_request" onfocus="readAllMgs()">
-            ${renderTableFromRequest()}
+    <div id="Message">
+
+        <div id="request">
+            <h1>נשלח אליי</h1>
+            ${tabelFrom.getHtml()}
         </div>
-        <div id="my_request">
-            ${renderTableMyRequest()}
-        </div>
-    `
 
-
-
-function renderTableMyRequest(){
-    let message = data.messages.filter(m=>m.fromID = data.user.id)
-    let tabel = new table(["נשלח בתאריך","עבור","תאריכים","גוף ההודעה","נקרא","אושר"])
-    message.forEach(msg=>{
-        tabel.addRow([
-            msg.date,
-            msg.toName,
-            msg.freeDay,
-            msg.body,
-            msg.read,
-            msg.confirm
-        ])
-    })
-
-
-    return /*html*/`
-        <h1>ההודעות שלי</h1>
+        
         <div id="myRequest">
-            ${tabel.getHtml()}
+            <h1>ההודעות שלי</h1>
+            ${tabelTo.getHtml()}
         </div>
-    `
-} 
-
-function renderTableFromRequest(){
-    let message = data.messages.filter(m=>m.toID = data.user.id)
-    let tabel = new table(["נשלח בתאריך","מאת","תאריכים","גוף ההודעה","פעולות"])
-    message.forEach(msg=>{
-        tabel.addRow([
-            msg.date,
-            msg.fromName,
-            msg.freeDay,
-            msg.body,
-            /*html*/`
-                <div>
-                    <button onclick = "confirmHandler('${mgs.id}')"></button>    
-                    <button onclick = "unConfirmHandler('${mgs.id}')"></button>    
-                <div>                
-            `
-        ])
-    })
-    return /*html*/`
-        <h1>הודעות ובקשות</h1>
-        <div id="fromRequest" onfocus="readAllMgs()">
-            ${tabel.getHtml()}
-        </div>
-    `
-} 
 
 
 
-
-
-
-
-
-function readAllMgs(){
-
-    if(!m.read){
-        POST("/readMgs",{id:m.id},(response)=>{})
-    }
-
-}
+    </div>
+`

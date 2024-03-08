@@ -8,13 +8,24 @@ async function GET(get,opt ,call){
     if(call) call()
 }
 async function POST(path,data,call){
-    let api = await fetch(path,{
-        method:"POST",
-        headers:{
-            'Content-Type': 'application/json',
-        },
-        body:JSON.stringify(data)
-    })
-    let res = await api.json()
-    if(call) call(res)
+    if(data instanceof FormData){
+            let api = await fetch(path,{
+            method:"POST",
+            body:data
+        })
+        let res = await api.json()
+        if(call) call(res)
+    }
+    else {
+        let api = await fetch(path,{
+            method:"POST",
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            body:JSON.stringify(data)
+        })
+        let res = await api.json()
+        if(call) call(res)
+    }
+
 }

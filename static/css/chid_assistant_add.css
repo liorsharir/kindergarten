@@ -54,7 +54,7 @@
     margin: -30px auto;
     height: max-content;
 }
-.form_add input[type="text"],
+.form_add input,
 .form_add textarea {
     width: 100%;
     padding: 10px;
@@ -92,6 +92,10 @@
     margin-right: 5px; 
     margin-top: 20px;
     grid-column: 30/49;
+
+}
+#assistantImgContainer{
+    height: 350px;
 
 }
 .ImgContainer:hover{
@@ -152,16 +156,19 @@
 
 #MedicalData{
     margin-top: -20px;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
+    padding: 10px;
+
 }
 
 .form_actions{
-    display: grid;
+    display: flex;
     width: 97%;
     margin-bottom: 20px;
     height: 50px;
     justify-content:space-around;
     align-items: center;
+    margin-top: 73px;
 }
 
 .form_actions>div{

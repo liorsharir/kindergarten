@@ -61,7 +61,7 @@ function GetNumberOfMgsNotRead(){
 
 
 function burgerHandler(){
-    PopUp("תפריט","",()=>{
+    popup("",()=>{
         return /*html*/`        
             <ul class="burger_nav">
                 <li><a href="/home">דף הבית</a></li>

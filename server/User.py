@@ -11,9 +11,10 @@ class Authorization(Enum):
 
 
 class User:
-    def __init__(self,auth,id,fn,ln,birth,ph,email,gender,avatar="",token="") -> None:
-        self.auth       = auth   
+    def __init__(self,auth,id,userID,fn,ln,birth,ph,email,gender,avatar="",token="") -> None:
         self.id         = id
+        self.userID     = userID
+        self.auth       = auth   
         self.firstName  = fn
         self.lastName   = ln
         self.birthday   = birth
@@ -32,7 +33,7 @@ class User:
 
     
     def getFullName(self)   : return f"{self.firstName} {self.lastName}"
-    def toJson(self)        : return f'"user":{{"id":"{self.id}","auth":"{self.auth}","firstName":"{self.firstName}","lastName":"{self.lastName}","name":"{self.getFullName()}","birthday":"{self.birthday}","phone":"{self.phone}","email":"{self.email}","gender":"{self.gender}","avatar":"{self.avatar}","token":"{self.token}"}}'
+    def toJson(self)        : return f'"user":{{"id":"{self.id}","userID":"{self.userID}","auth":"{self.auth}","firstName":"{self.firstName}","lastName":"{self.lastName}","name":"{self.getFullName()}","birthday":"{self.birthday}","phone":"{self.phone}","email":"{self.email}","gender":"{self.gender}","avatar":"{self.avatar}","token":"{self.token}"}}'
         
         
     def changeImage(self,path):
@@ -47,9 +48,9 @@ class User:
     def getUserByToken(token="null"):
         print(f"token: {token}")
         if(token and len(token)>10):
-            query = DB.instance.Query(f"SELECT id,firstName,lastName,email,phone,birthday,gender,avatar,auth,token FROM users WHERE token='{token}';",rows=1)
+            query = DB.instance.Query(f"SELECT id,firstName,lastName,email,phone,birthday,gender,avatar,auth,token,userID FROM users WHERE token='{token}';",rows=1)
             if(query):
-                return User(id=query[0],fn=query[1],ln=query[2],email=query[3],ph=query[4],birth=query[5],gender=query[6],avatar=query[7],auth=query[8],token=token)
+                return User(id=query[0],fn=query[1],ln=query[2],email=query[3],ph=query[4],birth=query[5],gender=query[6],avatar=query[7],auth=query[8],token=token,userID=query[10])
         return User.Guest()
         
    
@@ -57,23 +58,23 @@ class User:
     def getUserByID(id="-1"):
         print(f"id: {id}")
         if(id!="-1"):
-            query = DB.instance.Query(f"SELECT id,firstName,lastName,email,phone,birthday,gender,avatar,auth,token FROM users WHERE id='{id}';",rows=1)
+            query = DB.instance.Query(f"SELECT id,firstName,lastName,email,phone,birthday,gender,avatar,auth,token,userID FROM users WHERE id='{id}';",rows=1)
             if(query):
-                return User(id=query[0],fn=query[1],ln=query[2],email=query[3],ph=query[4],birth=query[5],gender=query[6],avatar=query[7],auth=query[8])
+                return User(id=query[0],fn=query[1],ln=query[2],email=query[3],ph=query[4],birth=query[5],gender=query[6],avatar=query[7],auth=query[8],userID=query[10])
         return User.Guest()
         
    
         
     @staticmethod
-    def getFullNameById(id="-1"):
-        return User.getUserByID(id).getFullName()
+    def getFullNameById(userID="-1"):
+        return User.getUserByID(userID).getFullName()
         
    
         
 
     @staticmethod
     def Guest():
-        return User("GUEST","-1","GUEST","","","","","","https://w7.pngwing.com/pngs/717/24/png-transparent-computer-icons-user-profile-user-account-avatar-heroes-silhouette-black-thumbnail.png","")
+        return User("GUEST","-1","-1","GUEST","","","","","","https://w7.pngwing.com/pngs/717/24/png-transparent-computer-icons-user-profile-user-account-avatar-heroes-silhouette-black-thumbnail.png","")
     
     @staticmethod 
     def Login(email,password):

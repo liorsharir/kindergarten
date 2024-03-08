@@ -6,7 +6,6 @@ from server.permission  import ResponsePage ,checkPermission
 from server.Actions     import Actions
 from tools              import Print,allowed_file
 from werkzeug.utils import secure_filename
-import os
 
 app = Flask(__name__)
 logging.getLogger('werkzeug').setLevel(logging.WARNING)
@@ -97,21 +96,21 @@ def Loginout():
 @app.route('/addChildren',methods=['POST'])
 def AddChildren():
     if checkPermission(["KINDERGARTNER"],request):
-        Action.AddChildern(request.get_json())
+        Action.AddChildern(request)
         return jsonify({"status":"200"})
     return jsonify({"status":"401"})
     
 @app.route('/updateChildren',methods=['POST'])
 def UpdateChildren():
     if checkPermission(["KINDERGARTNER"],request):
-        Action.UpdateChildern(request.get_json())
+        Action.UpdateChildern(request)
         return jsonify({"status":"200"})
     return jsonify({"status":"401"}) 
 
 @app.route('/removeChildren',methods=['POST'])
 def RemoveChildren():
     if checkPermission(["KINDERGARTNER"],request):
-        Action.RemoveChildern(request.get_json())
+        Action.RemoveChildern(request)
         return jsonify({"status":"200"})
     return jsonify({"status":"401"})
 
@@ -121,21 +120,21 @@ def RemoveChildren():
 @app.route('/addAssistant',methods=['POST'])
 def AddAssistant():
     if checkPermission(["KINDERGARTNER"],request):
-        Action.AddAssistans(request.get_json())
+        Action.AddAssistans(request)
         return jsonify({"status":"200"})
     return jsonify({"status":"401"})
     
 @app.route('/updateAssistant',methods=['POST'])
 def UpdateAssistant():
     if checkPermission(["KINDERGARTNER"],request):
-        Action.UpdateAssistans(request.get_json())
+        Action.UpdateAssistans(request)
         return jsonify({"status":"200"})
     return jsonify({"status":"401"}) 
 
 @app.route('/removeAssistant',methods=['POST'])
 def RemoveAssistant():
     if checkPermission(["KINDERGARTNER"],request):
-        Action.RemoveAssistans(request.get_json())
+        Action.RemoveAssistans(request)
         return jsonify({"status":"200"})
     return jsonify({"status":"401"})
 
@@ -189,33 +188,6 @@ def DeleteEvents():
 
  
 # ----------------------------------------------------
-@app.route('/uploadChildrenImg',methods=['POST'])
-@app.route('/uploadUserImg',methods=['POST'])
-def UploadImg(): 
-    if checkPermission(["KINDERGARTNER"],request):
-        if 'image' not in request.files:    
-            if request.path == "/uploadUserImg":
-                User.getUserByID(request.form.get('userID')).changeImage("static/img/genericAssistant.png")
-                return jsonify({'status': "200","path":"static/img/genericAssistant.png"})
-            else:
-                Action.changeChildren(request.form.get('chidID'),"static/img/genericChild.png")
-                return jsonify({'status': "200","path":"static/img/genericChild.png"})
-        file = request.files['image']
-        if file.filename == '':    
-          return jsonify({'status': "400"})
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            save_path = os.path.join(app.config['UPLOAD_FOLDER'], filename).replace("\\","/")
-            file.save(save_path)
-            if request.path == "/uploadUserImg":
-                User.getUserByID(request.form.get('userID')).changeImage(save_path)
-            else:
-                Action.changeChildren(request.form.get('chidID'),save_path)
-            return jsonify({'status': "200","path":save_path})
-        else:
-            return jsonify({'status': "400"})
-    return jsonify({"status":"401"})
-
 
 @app.route('/readMgs',methods=['POST'])
 def ReadMgs():

@@ -8,6 +8,10 @@ input{padding:3px 6px;}
 
 .pointer{cursor: pointer;}
 
+.lab{
+    margin: 5px;
+}
+
 body{
     background-color: #fcf9f9;
     display: flex;

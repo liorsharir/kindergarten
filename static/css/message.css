@@ -1,0 +1,36 @@
+.table{
+    background-color: #f7f7f7;
+    margin: 10px auto;
+    max-height:  250px;
+    overflow: auto;
+}
+
+.th{
+    background-color: aqua;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.td{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+
+
+#request{
+    width: 90%;
+    margin:50px auto;
+}
+#request>h1{
+    margin: 10px 0px;
+}
+
+#myRequest{
+    width: 90%;
+    margin:20px auto;
+}
+#myRequest>h1{
+    margin: 10px 0px;
+}

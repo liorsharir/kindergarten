@@ -26,6 +26,7 @@ class DB:
                 else                     : return False 
                 
         except BaseException as e:
+            print(query)
             print(e)
             return False
 
