@@ -73,7 +73,7 @@ function ExitActionChildren(){
 
 function addChildrenHandler(type){
     let ArrIDs = ["childID","firstName","lastName","birthday","childGender","name_dad","phone_dad","mail_dad","name_mom","phone_mom","mail_mom","MedicalData"]
-    let resultValidation = validation("children",child.id,ArrIDs) 
+    let resultValidation = validation("children",child.id,ArrIDs)
     if(file)    resultValidation.append('image', file);
 
     if(resultValidation){
@@ -90,7 +90,7 @@ function addChildrenHandler(type){
 }
 
 function deleteChildrenHandler(){
-    confirm("האם את בטוחה שכדאי למחוק את הילד :_(" ,(answer)=>{
+    confirm("האם את בטוחה שכדאי למחוק את הילד ?" ,(answer)=>{
         if(answer){
             POST("/removeChildren",{id: child.id} ,(respone)=>{
                 if(respone.status == 200)

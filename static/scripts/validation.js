@@ -25,55 +25,55 @@ function validation_Children(obj,id,elements){
     let valid = true
     let messages = []
     if(!Number.isNaN(Number.parseInt(elements.childID))){
-        elements.childID.style.backgroundColor="#ff030378";messages.push("תעודת הזהות חייבת להיות מספר");valid = false
+        elements.childID.style.backgroundColor="rgba(255, 209, 209,0.47)";messages.push("תעודת הזהות חייבת להיות מספר");valid = false
     }else elements.childID.style.backgroundColor="#FFFF"
 
     if(elements.childID.value.length !=9) {
-        elements.childID.style.backgroundColor="#ff030378";messages.push("תעודת הזהות חייבת להכיל 9 ספרות");valid = false
+        elements.childID.style.backgroundColor="rgba(255, 209, 209,0.47)";messages.push("תעודת הזהות חייבת להכיל 9 ספרות");valid = false
     }else elements.childID.style.backgroundColor =  "#FFFF"
 
     if(elements.firstName.value.trim()=="") {
-        elements.firstName.style.backgroundColor="#ff030378";messages.push("לילד חייב להיות שם");valid = false
+        elements.firstName.style.backgroundColor="rgba(255, 209, 209,0.47)";messages.push("לילד חייב להיות שם");valid = false
     }else elements.firstName.style.backgroundColor= "none"
 
     if(containsDigits(elements.firstName.value)){
-        elements.firstName.style.backgroundColor="#ff030378";messages.push("שם הילד לא יכול להכיל מספר");valid = false
+        elements.firstName.style.backgroundColor="rgba(255, 209, 209,0.47)";messages.push("שם הילד לא יכול להכיל מספר");valid = false
     }else elements.firstName.style.backgroundColor= "none"
 
 
     if(elements.lastName.value.trim()=="") {
-        elements.lastName.style.backgroundColor =  "#ff030378";messages.push("לילד חייב להיות שם משפחה");valid = false
+        elements.lastName.style.backgroundColor =  "rgba(255, 209, 209,0.47)";messages.push("לילד חייב להיות שם משפחה");valid = false
     }else elements.lastName.style.backgroundColor= "none"
 
     if(containsDigits(elements.lastName.value)){
-        elements.lastName.style.backgroundColor =  "#ff030378";messages.push("שם המשפחה לא יכול להכיל מספר");valid = false
+        elements.lastName.style.backgroundColor =  "rgba(255, 209, 209,0.47)";messages.push("שם המשפחה לא יכול להכיל מספר");valid = false
     }else elements.lastName.style.backgroundColor= "none"
 
 
     if(containsDigits(elements.name_dad.value)){
-        elements.name_dad.style.backgroundColor =  "#ff030378";messages.push("שם האבא לא יכול להכיל מספר");valid = false
+        elements.name_dad.style.backgroundColor =  "rgba(255, 209, 209,0.47)";messages.push("שם האבא לא יכול להכיל מספר");valid = false
     }else elements.name_dad.style.backgroundColor= "none"
 
     if(containsDigits(elements.name_mom.value)){
-        elements.name_mom.style.backgroundColor =  "#ff030378";messages.push("שם האם לא יכול להכיל מספר");valid = false
+        elements.name_mom.style.backgroundColor =  "rgba(255, 209, 209,0.47)";messages.push("שם האם לא יכול להכיל מספר");valid = false
     }else elements.name_mom.style.backgroundColor= "none"
 
 
     if(!isPhone(elements.phone_dad.value)){
-        elements.phone_dad.style.backgroundColor =  "#ff030378";messages.push("מספר טלפון של האבא לא תקין");valid = false
+        elements.phone_dad.style.backgroundColor =  "rgba(255, 209, 209,0.47)";messages.push("מספר טלפון של האבא לא תקין");valid = false
     }else elements.phone_dad.style.backgroundColor= "none"
     
     if(!isPhone(elements.phone_mom.value)){
-        elements.phone_mom.style.backgroundColor =  "#ff030378";messages.push("מספר טלפון של האמא לא תקין");valid = false
+        elements.phone_mom.style.backgroundColor =  "rgba(255, 209, 209,0.47)";messages.push("מספר טלפון של האמא לא תקין");valid = false
     }else elements.phone_mom.style.backgroundColor= "none"
 
 
     if(!isMail(elements.mail_dad.value)){
-        elements.mail_dad.style.backgroundColor =  "#ff030378";messages.push("המייל של האבא לא תקין");valid = false
+        elements.mail_dad.style.backgroundColor =  "rgba(255, 209, 209,0.47)";messages.push("המייל של האבא לא תקין");valid = false
     }else elements.mail_dad.style.backgroundColor= "none"
 
     if(!isMail(elements.mail_mom.value)){
-        elements.mail_mom.style.backgroundColor =  "#ff030378";messages.push("המייל של האמא לא תקין");valid = false
+        elements.mail_mom.style.backgroundColor =  "rgba(255, 209, 209,0.47)";messages.push("המייל של האמא לא תקין");valid = false
     }else elements.mail_mom.style.backgroundColor= "none"
 
     if(valid){
@@ -82,43 +82,42 @@ function validation_Children(obj,id,elements){
         for(let key in obj)  formData.append(`${key}`,obj[key])
         return formData;
     }
-    else{popup(/*html*/`<ul>${messages.map(m=>`<li>${m}</li>`)}</ul>`)}
+    else{popup(/*html*/`<ul>${messages.map(m=>`<li class="validationItem">${m}</li>`).join("")}</ul>`)}
     return false;
 }
-
 
 function validation_assistant(obj,id,elements){
     let valid = true
     let messages = []
     if(!Number.isNaN(Number.parseInt(elements.assistantId))){
-        elements.assistantId.style.backgroundColor="#ff030378";messages.push("תעודת הזהות חייבת להיות מספר");valid = false
+        elements.assistantId.style.backgroundColor="rgba(255, 209, 209,0.47)";messages.push("תעודת הזהות חייבת להיות מספר");valid = false
     }else elements.assistantId.style.backgroundColor="#FFFF"
 
     if(elements.assistantId.value.length !=9) {
-        elements.assistantId.style.backgroundColor="#ff030378";messages.push("תעודת הזהות חייבת להכיל 9 ספרות");valid = false
+        elements.assistantId.style.backgroundColor="rgba(255, 209, 209,0.47)";messages.push("תעודת הזהות חייבת להכיל 9 ספרות");valid = false
     }else elements.assistantId.style.backgroundColor =  "#FFFF"
 
     if(elements.firstName.value.trim()=="") {
-        elements.firstName.style.backgroundColor =  "#ff030378";messages.push(" חייב להיות שם פרטי");valid = false
+        elements.firstName.style.backgroundColor =  "rgba(255, 209, 209,0.47)";messages.push(" חייב להיות שם פרטי");valid = false
     }else elements.firstName.style.backgroundColor= "none"
 
     if(elements.lastName.value.trim()=="") {
-        elements.lastName.style.backgroundColor =  "#ff030378";messages.push("חייב להיות שם משפחה");valid = false
+        elements.lastName.style.backgroundColor =  "rgba(255, 209, 209,0.47)";messages.push("חייב להיות שם משפחה");valid = false
     }else elements.lastName.style.backgroundColor= "none"
 
     if(containsDigits(elements.firstName.value)){
-        elements.firstName.style.backgroundColor =  "#ff030378";messages.push("שם לא יכול להכיל מספר");valid = false
+        elements.firstName.style.backgroundColor =  "rgba(255, 209, 209,0.47)";messages.push("שם לא יכול להכיל מספר");valid = false
     }else elements.firstName.style.backgroundColor= "none"
 
     if(containsDigits(elements.lastName.value)){
-        elements.lastName.style.backgroundColor =  "#ff030378";messages.push("שם לא יכול להכיל מספר");valid = false
+        elements.lastName.style.backgroundColor =  "rgba(255, 209, 209,0.47)";messages.push("שם לא יכול להכיל מספר");valid = false
     }else elements.lastName.style.backgroundColor= "none"
    
     if(!isPhone(elements.phone.value)){
-        elements.phone.style.backgroundColor =  "#ff030378";messages.push("מספר טלפון לא תקין");valid = false
+        elements.phone.style.backgroundColor =  "rgba(255, 209, 209,0.47)";messages.push("מספר טלפון לא תקין");valid = false
     }else elements.phone.style.backgroundColor= "none"
     if(!isMail(elements.email.value)){
-        elements.email.style.backgroundColor =  "#ff030378";messages.push("מייל לא תקין");valid = false
+        elements.email.style.backgroundColor =  "rgba(255, 209, 209,0.47)";messages.push("מייל לא תקין");valid = false
     }else elements.email.style.backgroundColor= "none"
 
 
@@ -131,7 +130,7 @@ function validation_assistant(obj,id,elements){
         }
         return formData;
     }
-    else{popup(/*html*/`<ul>${messages.map(m=>`<li>${m}</li>`)}</ul>`)}
+    else{popup(/*html*/`<ul>${messages.map(m=>`<li class="validationItem">${m}</li>`).join("")}</ul>`)}
     return false;
 }   
 

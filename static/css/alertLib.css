@@ -72,9 +72,9 @@
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
-    border: 2px solid red; /* Red border */
+    border: 2px solid #624de3; /* Red border */
     width: 50%;
-    max-width: 400px;
+    max-width: 40%;
     height: max-content;
     text-align: center;
     border-radius: 8px;

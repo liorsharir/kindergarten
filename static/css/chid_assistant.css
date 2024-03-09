@@ -55,7 +55,7 @@ main{
     grid-auto-rows: minmax(50px, auto);
     justify-content: center;
     align-self:  center;
-    gap:10px;
+    gap:30px;
 }
 
 
@@ -63,7 +63,7 @@ main{
     display: flex;
     flex-direction: column;
     gap:5px;
-    width: 180px;
+    width: 200px;
     height: 280px;
     margin-bottom: 20px;
     box-shadow: 2px 2px 4px 1px #00000029;

@@ -3,7 +3,7 @@
     height: max-content;
     margin: 10px auto;
     margin-bottom: 20px;
-    border: 1px solid;
+    box-shadow: 1px 1px 4px 1px #0000002b;
     border-radius: 10px;
     background-color: #e8e4ff;
     display: flex;
@@ -94,16 +94,15 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: #fafafa;
-    border: 1px solid;
+    background-color: #f4f4f4;
     height: 100px;
 }
 .weekCalendar span{
     text-align: center;
 }
 .dayCalendar{
-    background-color: #fafafa;
-    border: 1px solid;
+    background-color: #f4f4f4;
+    padding: 8px;
     height: 300px;
 }
 .saturday{
