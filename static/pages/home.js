@@ -6,10 +6,11 @@ document.getElementById("root").innerHTML = /*html*/`
     ${AboutUs()}
 
     <div class="feature-list">
-         ${FeaturePresentation("ניהול תיק אישי", "פרטים, תיעוד ומעקב אישי", "static/img/manageKid.png")}
-         ${FeaturePresentation("שיבוץ משמרות","ניהול יומן ואילוצים לצוות הגן", "static/img/manageShifts.png")}
-         ${FeaturePresentation("ניהול אירועי הגן", "פרטים, עריכה, הוספה ללוח שנה", "static/img/manageEvents.png")}  
+        <li><a href="/children">${FeaturePresentation("ניהול תיק אישי", "פרטים, תיעוד ומעקב אישי", "static/img/manageKid.png")}</a></li>
+        <li><a href="/assistant">${FeaturePresentation("שיבוץ משמרות", "ניהול יומן ואילוצים לצוות הגן", "static/img/manageShifts.png")}</a><li>
+        <li><a href="/events">${FeaturePresentation("ניהול אירועי הגן", "פרטים, עריכה, הוספה ללוח שנה", "static/img/manageEvents.png")}</a></li>
     </div>
+
  
 `
 
