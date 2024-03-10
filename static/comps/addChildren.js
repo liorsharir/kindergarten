@@ -19,7 +19,7 @@ function AddChildren(index){
                     <label>שם פרטי</label>    <div class="validationInp"> <input ${disable} type="text" id="firstName" class="withValidation Size1" value="${child.firstName}"/>                                  <span id="validation_firstName"></span> </div>
                     <label>שם משפחה</label>   <div class="validationInp"> <input ${disable} type="text" id="lastName" class="withValidation Size1" value="${child.lastName}"/>                                    <span id="validation_lastName"></span>  </div>
                     <label>תאריך לידה</label> <div class="validationInp"> <input ${disable} type="date" id="birthday" class="withValidation Size1" value="${child.birthday}"/>                                    <span id="validation_birthday"></span>  </div>
-                    <label>מין</label>        <select ${disable} id="childGender" class="genderSelect Size1">    <option value="male" ${child.gender=='male' ? "selected":""}>male</option> <option value="female" ${child.gender=='female' ? "selected":""}>female</option>     </select>
+                    <label>מין</label>        <select ${disable} id="gender" class="genderSelect Size1">    <option value="male" ${child.gender=='male' ? "selected":""}>male</option> <option value="female" ${child.gender=='female' ? "selected":""}>female</option>     </select>
                 </div>
                 <div id="childImgContainer" class="ImgContainer" onclick=${changeImag}>
                     <img id="childImg" src="${child.image}" alt="child_img"/>
@@ -72,8 +72,8 @@ function ExitActionChildren(){
 }
 
 function addChildrenHandler(type){
-    let ArrIDs = ["childID","firstName","lastName","birthday","childGender","name_dad","phone_dad","mail_dad","name_mom","phone_mom","mail_mom","MedicalData"]
-    let resultValidation = validation("children",child.id,ArrIDs)
+    let ArrIDs = ["childID","firstName","lastName","birthday","gender","name_dad","phone_dad","mail_dad","name_mom","phone_mom","mail_mom","MedicalData"]
+    let resultValidation = validation("children",child.id,ArrIDs) 
     if(file)    resultValidation.append('image', file);
 
     if(resultValidation){
@@ -90,11 +90,12 @@ function addChildrenHandler(type){
 }
 
 function deleteChildrenHandler(){
-    confirm("האם את בטוחה שכדאי למחוק את הילד ?" ,(answer)=>{
+    confirm("האם את בטוחה שכדאי למחוק את הילד?" ,(answer)=>{
         if(answer){
             POST("/removeChildren",{id: child.id} ,(respone)=>{
                 if(respone.status == 200)
-                    location.reload()
+                    Alert("הילד נמחק בהצלחה","Good",1000,()=>location.reload())
+
                 else
                     alert("אין לך הרשאה לפעולה זו")
             })

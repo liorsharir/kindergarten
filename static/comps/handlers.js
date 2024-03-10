@@ -10,7 +10,7 @@ function changeImg(){
 
 
 function deleteChildrenHandler(){
-    let answer = confirm("האם את בטוחה שכדאי למחוק את הילד ?")
+    let answer = confirm("האם את בטוחה שכדאי למחוק את הילד?")
     if(answer){
         POST("/removeChildren",{childId: document.getElementById("childId").value} ,(respone)=>{
             if(respone.status == 200)

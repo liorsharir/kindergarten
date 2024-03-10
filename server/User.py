@@ -56,7 +56,6 @@ class User:
    
     @staticmethod
     def getUserByID(id="-1"):
-        print(f"id: {id}")
         if(id!="-1"):
             query = DB.instance.Query(f"SELECT id,firstName,lastName,email,phone,birthday,gender,avatar,auth,token,userID FROM users WHERE id='{id}';",rows=1)
             if(query):
@@ -92,3 +91,8 @@ class User:
             DB.instance.Query(f"UPDATE users SET token='null' WHERE token='{token}' LIMIT 1;")
         return True
     
+    @staticmethod
+    def getKINDERGARTNERIDId():
+        query =  DB.instance.Query(f"SELECT id FROM users WHERE auth='KINDERGARTNER';")
+        return query[0][0]
+  

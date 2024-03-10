@@ -68,7 +68,6 @@ class CalendarEvent(CalendarAPI):
             Json = ',"events":['
             for item in result:
                 Json += f'{{"id":"{item["id"]}","summary": "{item["summary"]}","start":{{"fullYear":"{item["start"]["fullYear"]}","fullHour":"{item["start"]["fullHour"]}","year":"{item["start"]["year"]}","mon":"{item["start"]["mon"]}","day":"{item["start"]["day"]}","hour":"{item["start"]["hour"]}","min":"{item["start"]["min"]}","sec":"{item["start"]["sec"]}"}},"end":{{"fullYear":"{item["end"]["fullYear"]}","fullHour":"{item["end"]["fullHour"]}","year":"{item["end"]["year"]}","mon":"{item["end"]["mon"]}","day":"{item["end"]["day"]}","hour":"{item["end"]["hour"]}","min":"{item["end"]["min"]}","sec":"{item["end"]["sec"]}"}},"description":"{item["description"]}"}}'
-                #Json += f'{{"id":"{item["id"]}","summary": "{item["summary"]}","start":{{"fullYear":"{item["start"]['fullYear']}","fullHour":"{item["start"]['fullHour']}","year":"{item["start"]['year']}","mon":"{item["start"]['mon']}","day":"{item["start"]['day']}","hour":"{item["start"]['hour']}","min":"{item["start"]['min']}","sec":"{item["start"]['sec']}"  }},"end":{{"fullYear":"{item["end"]['fullYear']}","fullHour":"{item["end"]['fullHour']}","year":"{item["end"]['year']}","mon":"{item["end"]['mon']}","day":"{item["end"]['day']}","hour":"{item["end"]['hour']}","min":"{item["end"]['min']}","sec":"{item["end"]['sec']}"}},"description":"{item["description"]}"}}'
             Json += ']'
             return Json
 
@@ -97,7 +96,6 @@ class CalendarEvent(CalendarAPI):
                 Json = ',"events":['
                 for item in result:
                     Json += f'{{"id":"{item["id"]}","summary": "{item["summary"]}","start":{{"fullYear":"{item["start"]["fullYear"]}","fullHour":"{item["start"]["fullHour"]}","year":"{item["start"]["year"]}","mon":"{item["start"]["mon"]}","day":"{item["start"]["day"]}","hour":"{item["start"]["hour"]}","min":"{item["start"]["min"]}","sec":"{item["start"]["sec"]}"}},"end":{{"fullYear":"{item["end"]["fullYear"]}","fullHour":"{item["end"]["fullHour"]}","year":"{item["end"]["year"]}","mon":"{item["end"]["mon"]}","day":"{item["end"]["day"]}","hour":"{item["end"]["hour"]}","min":"{item["end"]["min"]}","sec":"{item["end"]["sec"]}"}},"description":"{item["description"]}"}}'
-                    #Json += f'{{"id":"{item["id"]}","summary": "{item["summary"]}","start":{{"fullYear":"{item["start"]['fullYear']}","fullHour":"{item["start"]['fullHour']}","year":"{item["start"]['year']}","mon":"{item["start"]['mon']}","day":"{item["start"]['day']}","hour":"{item["start"]['hour']}","min":"{item["start"]['min']}","sec":"{item["start"]['sec']}"  }},"end":{{"fullYear":"{item["end"]['fullYear']}","fullHour":"{item["end"]['fullHour']}","year":"{item["end"]['year']}","mon":"{item["end"]['mon']}","day":"{item["end"]['day']}","hour":"{item["end"]['hour']}","min":"{item["end"]['min']}","sec":"{item["end"]['sec']}"}},"description":"{item["description"]}"}}'
                 Json += ']'
                 return Json
         return result

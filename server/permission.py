@@ -4,10 +4,12 @@ from server.User import User
 from server.Actions     import Actions
 
 Action = Actions()
+KINDERGARTNERID = User.getKINDERGARTNERIDId()
 
 def ResponsePage(request:Request,page=[],comps=[],scripts=[],auth=[],dataByAuth=[["",[]]] ,kickout=["404.js"],sendData=[]):
     user = User.getUserByToken(request.cookies.get('token'))
     send = [user.toJson()]
+    send.append(f'"KINDERGARTNERID":"{KINDERGARTNERID}",')
     if(user.id != "-1"):
         send.append(Action.getAllMessageById(user.id))
     for item in sendData: 

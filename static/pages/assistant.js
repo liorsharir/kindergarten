@@ -11,18 +11,13 @@ document.getElementById("root").innerHTML = /*html*/`
                 </div> 
             </div>
         `)}
-
-
-
-
-
-
-
     </main>
 
     ${render(data.user.auth == "ASSISTANCE",/*html*/`
-        ${FreeDay()}
-    `)}
+            ${FreeDay()}
+        `)}
+
+
     <div id="CalendarAsistanceContainer">
         ${render(data.user.auth == "KINDERGARTNER",/*html*/`
            ${CalendarAsistance()}

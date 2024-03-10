@@ -11,10 +11,12 @@
 #AboutUs h2 {
     font-size: 28px;
     margin-bottom: 1%;
+    text-align: center;
 }
 #AboutUs p {
-    font-size: 18px;
+    font-size: 20px;
     line-height: 1.5;
     margin-bottom: 2%;
+    text-align: center;
 }
 

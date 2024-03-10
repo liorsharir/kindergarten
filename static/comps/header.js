@@ -22,7 +22,7 @@ function Header(){
                         <li><a href="/assistant">סייעות</a></li>
                     `)}
                     
-                    <li><a href="">אירועים</a></li>
+                    <li><a href="/events">אירועים</a></li>
                 </ul>
 
                 <div class="header_nav_burger" onclick="burgerHandler()">תפריט</div>
@@ -53,8 +53,9 @@ function logoutHandler(){
 function GetNumberOfMgsNotRead(){
     result = 0;
     data.messages.forEach((m,i)=>{
-        if(m.read=="0")
-            result++
+        if(m.to == data.user.id)
+            if(m.read=="0")
+                result++
     })
     return result
 }
@@ -73,7 +74,7 @@ function burgerHandler(){
                     <li><a href="/assistant">סייעות</a></li>
                 `)}
                 
-                <li><a href="">אירועים</a></li>
+                <li><a href="/events">אירועים</a></li>
             </ul>
         `
     })

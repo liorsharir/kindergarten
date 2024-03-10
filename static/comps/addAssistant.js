@@ -72,7 +72,7 @@ function addAssistantHandler(type){
 }
 
 function deleteAssistantHandler(){
-    confirm("האם את בטוחה שכדאי למחוק את הסייעת ?",(answer)=>{
+    confirm("האם את בטוחה שכדאי למחוק את הסייעת?",(answer)=>{
         if(answer){
             POST("/removeAssistant",{id: assistant.id} ,(respone)=>{
                 if(respone.status == 200)

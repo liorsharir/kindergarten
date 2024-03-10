@@ -65,20 +65,19 @@ class Actions:
     
    
     def getAllMessageById(self,id):
-        messages =  DB.instance.Query(f"SELECT id,fromID,toID,confirm,body,isRead,date,freeDay From messages fromName WHERE  fromID='{id}' or toID='{id}'")
-
-        
+        messages =  DB.instance.Query(f"SELECT id,fromID,toID,confirm,body,isRead,date,start,end From messages fromName WHERE  fromID='{id}' or toID='{id}'")
         json = '"messages":['
         if(messages) :
             for item in messages:   
                 fromName = User.getFullNameById(item[1])
                 toName   = User.getFullNameById(item[2])
-                json += f'{{"fromName":"{fromName}","toName":"{toName}","id":"{item[0]}","from":"{item[1]}","to":"{item[2]}","confirm":"{item[3]}","body":"{item[4]}","read":"{item[5]}","date":"{item[5]}","freeDay":"{item[6]}"}}'
+                json += f'{{"fromName":"{fromName}","toName":"{toName}","id":"{item[0]}","from":"{item[1]}","to":"{item[2]}","confirm":"{item[3]}","body":"{item[4]}","read":"{item[5]}","date":"{item[5]}","start":"{item[6]}","end":"{item[7]}"}}'
         json += '],'
         return json
    
-    def send_message(self, fromId , toId , body="",freeDay=""):
-        query = DB.instance.Query(f"INSERT INTO messages (fromID,toID,body,freeDay) VALUES ('{fromId}','{toId}','{body}','{freeDay}');")
+    def send_message(self, request):
+        data= request.get_json()
+        query = DB.instance.Query(f"INSERT INTO messages (fromID,toID,body,start,end) VALUES ('{data.get('fromID')}','{data.get('toID')}','{data.get('body')}','{data.get('start')}','{data.get('end')}');")
         if query: return True
         else    : return False
     
@@ -92,10 +91,19 @@ class Actions:
         if query: return True
         else    : return False
     
+    def read_allMessage(self ,userId):
+        query = DB.instance.Query(f"UPDATE messages SET isRead='1' WHERE toID='{userId}';")
+        if query: return True
+        else    : return False
+    
+    def confirmMessage(self ,msgId,isConfirm):
+        query = DB.instance.Query(f"UPDATE messages SET confirm='{isConfirm}' WHERE id='{msgId}';")
+        if query: return True
+        else    : return False
+    
     
         
     def changeChildren(self ,chidID,path):
-        print(path)
         query = DB.instance.Query(f"UPDATE children SET image='{path}' WHERE id='{chidID}' LIMIT 1 ;")
         if query: return True
         else    : return False

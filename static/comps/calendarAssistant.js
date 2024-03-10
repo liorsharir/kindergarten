@@ -1,14 +1,7 @@
-let week = new Time()
-let message = {
-    "1":"הוסף עובד",
-    "2":"הוסף עובד",
-    "3":"הוסף עובד",
-    "4":"הוסף עובד",
-    "5":"הוסף עובד",
-    "6":"הוסף עובד",
-    "7":"הוסף עובד",
-}
-function CalendarAsistance(week = new Time()){
+let week = new Week()
+
+let message = getMessageForWeek()
+function CalendarAsistance(week = new Week()){
     return /*html*/`
         <div id="calendarAsistance">
             <div id="selectDate">
@@ -69,7 +62,7 @@ function CalendarAsistance(week = new Time()){
 
 function selectDateHandler(){
     let btnSelectTime_V= document.getElementById("btnSelectTime_V")
-    week = new Time(new Date(btnSelectTime_V.value));
+    week = new Week(new Date(btnSelectTime_V.value));
     let CalendarAsistanceContainer = document.getElementById("CalendarAsistanceContainer")
     CalendarAsistanceContainer.innerHTML = CalendarAsistance(week)
 }
@@ -78,16 +71,19 @@ function add7(){
     week.addWeekToDate()
     document.getElementById("CalendarAsistanceContainer").innerHTML = CalendarAsistance(week)
     document.getElementById("btnSelectTime_V").value = week.currentDate;
+    message = getMessageForWeek()
 }
 function sub7(){
     week.subWeekToDate()
     document.getElementById("CalendarAsistanceContainer").innerHTML = CalendarAsistance(week)
     document.getElementById("btnSelectTime_V").value = week.currentDate;
+    message = getMessageForWeek()
 }
 
 
 function addAsistantForDay(day){
     let elem = document.getElementById(`dayCalendar-${day}`);
+    if(elem.childNodes.length>1) return
     confirm(/*html*/`
         <h3 style="text-align:center;" >${week.getDayDate(day)}</h3><br>
         <label>בחרי סייעת לשיבוץ:</label>
@@ -96,10 +92,20 @@ function addAsistantForDay(day){
         <textarea id="body" style="width:90%; heigth:height"></textarea>
     `,(answer)=>{
         if(answer){
-            let assistantSelected = document.getElementById("assistantSelected").value
-            let body = document.getElementById("body").innerHTML
-            POST("/addAssistantsEvents",{assistants:assistantSelected,body:body,date:week.getDayDate(day)},(response)=>{
-                
+            let assistant = document.getElementById("assistantSelected").value
+            let body = document.getElementById("body").value +"|"+data.assistants.find(a=>a.id==assistant).name
+            let sendToServer={
+                toID:assistant,
+                fromID: data.user.id,
+                assistant : assistant,
+                summery : "שיבוץ עובד",
+                body:body,
+                start:week.getDayDateFormat(day)+'T06:00:00',      
+                end:week.getDayDateFormat(day)+'T20:00:00'           
+            }
+            console.log("sendToserver",sendToServer)
+            POST("/addAssistantsEvents",sendToServer,()=>{
+                Alert("השיבוץ נוצר בהצלחה","Good",1000,()=>location.reload())
             })
         }
     },"אשרי","בטלי")
@@ -108,20 +114,42 @@ function addAsistantForDay(day){
 
 
 function getMessageForWeek(){
-    message = {
-        "1":"הוסף עובד",
-        "2":"הוסף עובד",
-        "3":"הוסף עובד",
-        "4":"הוסף עובד",
-        "5":"הוסף עובד",
-        "6":"הוסף עובד",
-        "7":"הוסף עובד",
+    let message = {
+        "1":"&nbsp;&nbsp;הוסף עובד",
+        "2":"&nbsp;&nbsp;הוסף עובד",
+        "3":"&nbsp;&nbsp;הוסף עובד",
+        "4":"&nbsp;&nbsp;הוסף עובד",
+        "5":"&nbsp;&nbsp;הוסף עובד",
+        "6":"&nbsp;&nbsp;הוסף עובד",
+        "7":"&nbsp;&nbsp;הוסף עובד",
     }
-
-    // data.messages.forEach(m=>{})
-
+    
+    if(data.events)
+        data.events.forEach(e=>{
+            let daynum =  new Date(e.start.fullYear).getDay()+1 
+            message[daynum] = renderCalendar( e.description , e.id)
+        })
+    return message
 }
 
-function getDatNumByDate(date){
 
+
+function renderCalendar(description,id){
+    let body = description.split("|")[0]
+    let assistant = description.split("|")[1]
+    return /*html*/`
+        <div class="calendarItem">
+            <div class="calendarItemExit" onclick="deleteCalandarItem('${id}')">X</div>
+            <div class="calendarBody">${body}</div>
+            <div class="calendarAsistant">סייעת : ${assistant}</div>
+        </div>
+    `
+}
+
+function deleteCalandarItem(id){
+    POST("/deleteAssistantsEvents",{id:id},(response)=>{
+        if(response.status == 200){
+            Alert("השיבוץ נמחק בהצלחה","Good",1000,()=>location.reload())
+        }
+    })
 }

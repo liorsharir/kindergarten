@@ -121,6 +121,13 @@ main{
 }
 
 
+#form_freeDay{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    margin: 30px;
+}
+
 
 
 
