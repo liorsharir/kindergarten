@@ -113,7 +113,7 @@
 .calendarItem{
     display: flex;
     flex-direction: column;
-    background-color: aqua;
+    background-color: #e8e4ff;
     padding:10px;
     overflow: visible;
     position: relative;
