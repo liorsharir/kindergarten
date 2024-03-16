@@ -27,6 +27,7 @@
     <script>
         let dataJson = "{{data}}"
         let data = dataJson.replaceAll("&#34;",'"')
+        data = data.replaceAll(",,",',')
         try{
             data = JSON.parse(data);
             console.log("data:",data)

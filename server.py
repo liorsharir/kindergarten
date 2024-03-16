@@ -74,7 +74,7 @@ def Events():
         comps        = ["header.js","calendarEvent.js"],
         scripts      = ["validation.js"],
         auth         = [KINDERGARTNER,ASSISTANCE],
-        sendData     = [],
+        sendData     = [calendarEvent.getAllEvents(json=True)],
     )
 
 @app.route('/login',methods=['GET'])
@@ -162,7 +162,7 @@ def AllAssistantsEvents():
 def AddAssistantsEvents():
     if checkPermission(["KINDERGARTNER"],request):
         eventObj = request.get_json()
-        calendarAssistant.addEvent(calendarAssistant.CreateEventObj(summary=eventObj["summery"], description=eventObj["body"],start_date_time=eventObj["start"],end_date_time=eventObj["end"]))
+        calendarAssistant.addEvent(calendarAssistant.CreateEventObjOfAsistant(summary=eventObj["summery"], description=eventObj["body"],start_date_time=eventObj["start"],end_date_time=eventObj["end"]))
         Action.send_message(request)
         return jsonify({"status":"200"})
     return jsonify({"status":"401"})
@@ -185,7 +185,8 @@ def AllEvents():
 @app.route('/addEvents',methods=['POST'])
 def AddEvents():
     if checkPermission(["KINDERGARTNER"],request):
-        calendarEvent.addEvent(eventObj=request.get_json())
+        eventObj = request.get_json()
+        calendarEvent.addEvent(eventObj=calendarEvent.CreateEventObj(summary=eventObj["summery"], description=eventObj["body"],start_date_time=eventObj["start"],end_date_time=eventObj["end"]))
         return jsonify({"status":"200"})
     return jsonify({"status":"401"})
 

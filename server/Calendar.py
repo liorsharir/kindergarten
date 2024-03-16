@@ -1,6 +1,7 @@
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 import datetime
+from .database import DB 
 
 class CalendarAPI:
     def __init__(self):
@@ -39,7 +40,7 @@ class CalendarEvent(CalendarAPI):
         CalendarAPI.__init__(self)
         self.calendarsID = {
             "assistant": "1b114cab90ad5b53436a5ea0a26fe9c3ca66910bd8eaea010091a519a8069cd6@group.calendar.google.com",
-            "events" : ""
+            "events"   : "a18f2344f242b6d972791ee0150fdeb142c65bb5a580ac959c10e344d1f5b889@group.calendar.google.com"
         }
         if(self.calendarsID.get(type)==None):
             print("the type of calanfar not good")
@@ -122,9 +123,38 @@ class CalendarEvent(CalendarAPI):
                 print('Event deleted.')
 
 
-
+    def CreateEventObjOfAsistant(self,summary, start_date_time, end_date_time, location=None, description=None, attendees=None, reminders=None, recurrence=None, time_zone='Asia/Jerusalem'):
+        # allEmails = DB.instance.Query("select email From users")
+        # print(allEmails)
+        event = {
+            'summary': summary,
+            'location': location if location else 'לא צוין מיקום',
+            'description': description if description else 'לא צוינה תיאור',
+            'start': {
+                'dateTime': start_date_time,
+                'timeZone': time_zone,
+            },
+            'end': {
+                'dateTime': end_date_time,
+                'timeZone': time_zone,
+            },
+            'recurrence': recurrence if recurrence else [],
+            'attendees': attendees if attendees else [],
+            'reminders': {
+                'useDefault': False,
+                'overrides': reminders if reminders else [
+                    {'method': 'email', 'minutes': 24 * 60},
+                    {'method': 'popup', 'minutes': 10},
+                ],
+            },
+        }
+        return event
+    
 
     def CreateEventObj(self,summary, start_date_time, end_date_time, location=None, description=None, attendees=None, reminders=None, recurrence=None, time_zone='Asia/Jerusalem'):
+        # allEmails = DB.instance.Query("(SELECT email AS email FROM users) UNION (SELECT fatherEmail AS email FROM children) UNION (SELECT motherEmail AS email FROM children)")
+        # attendees = [{'email': email[0]} for email in allEmails]
+
         event = {
             'summary': summary,
             'location': location if location else 'לא צוין מיקום',

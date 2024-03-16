@@ -69,15 +69,15 @@ function selectDateHandler(){
 
 function add7(){
     week.addWeekToDate()
+    message = getMessageForWeek()
     document.getElementById("CalendarAsistanceContainer").innerHTML = CalendarAsistance(week)
     document.getElementById("btnSelectTime_V").value = week.currentDate;
-    message = getMessageForWeek()
 }
 function sub7(){
     week.subWeekToDate()
+    message = getMessageForWeek()
     document.getElementById("CalendarAsistanceContainer").innerHTML = CalendarAsistance(week)
     document.getElementById("btnSelectTime_V").value = week.currentDate;
-    message = getMessageForWeek()
 }
 
 
@@ -126,8 +126,10 @@ function getMessageForWeek(){
     
     if(data.events)
         data.events.forEach(e=>{
-            let daynum =  new Date(e.start.fullYear).getDay()+1 
-            message[daynum] = renderCalendar( e.description , e.id)
+            if( week.areDateInSameWeek(e.start.fullYear)  ){
+                let daynum =  new Date(e.start.fullYear).getDay()+1 
+                message[daynum] = renderCalendar( e.description , e.id)
+            }
         })
     return message
 }

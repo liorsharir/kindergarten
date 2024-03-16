@@ -12,7 +12,7 @@
     padding: 20px 10px;
 }
 
-#eventsCalendar{
+#eventsCalendarContainer{
     width: 95%;
     background-color: #fcf9f9;
     margin: 10px auto;
@@ -20,6 +20,46 @@
     grid-template-columns: repeat(7,1fr);
     padding: 10px;
     gap:5px
+}
+.SelectTime_Events{
+    margin: auto;
+}
+
+
+#Select_Time{
+    width: 50%;
+    background-color: #ecebeb;
+    display: grid;
+    grid-template-columns:repeat(30,1fr);
+    justify-content: center;
+    align-items: center;
+}
+
+
+#Select_Time .btnSelectTime{
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+}
+
+#Select_Time #btnSelectTime_V{
+    grid-column: 3/6;
+}
+
+#Select_Time #btnSelectTime_date{
+    grid-column: 8/21;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    font-size: large;
+    align-items: center;
+}
+
+#Select_Time #btnSelectTime_left{
+    grid-column: 23/26;
+}
+#Select_Time #btnSelectTime_rigth{
+    grid-column: 27/30;
 }
 
 .eventsMonItem{
@@ -29,12 +69,64 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    padding: 4px;
 }
 
-.SelectTimeEvents{
-    margin: auto;
-}
+
 
 .eventTh{
-    background-color: #e8e4ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height:max-content;
+    gap:3px;
+    margin-bottom: 10px;
+    background-color:#fdb9b978;
+    border-top: 10px;
+}
+.eventTh_day ,.eventTh_date{
+    display: flex;
+    justify-content: center;
+    height: max-content;
+}
+
+
+.eventDataContainer{
+    cursor: pointer;
+}
+.EventDataNoCursor{
+    cursor: default;
+    position: relative;
+}
+
+.deleteEvent{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top:-10px;
+    right: 2px;
+    cursor: pointer;
+}
+.deleteEvent:hover{
+    background-color: rgba(227, 106, 106, 0.575);
+}
+.EventData{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap:3px;
+}
+.summary{
+    display: flex;
+    text-decoration: underline;
+    font-weight: bold;
+    justify-content: center;
+    height:max-content;
+
+}
+.description{
+    padding: 3px;
 }
