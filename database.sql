@@ -57,7 +57,7 @@ insert INTO users
 (userID,password,phone,email,firstName,lastName,birthday,gender,avatar,auth,notifications,token) Values
 ("123456789","123123",'0505050501',"user1@gmail.com","מירב","בן מיכאל","2000-03-02","female","static/img/kindergarten.jpeg","KINDERGARTNER",0,""),
 ("123456782","123123",'0505050502',"user2@gmail.com","רחלי","לוי","2000-03-02","female","static/img/assistant1.jpeg","ASSISTANCE",0,""),
-("123456784","123123",'0505050502',"user2@gmail.com","יונית","נחמני","2000-03-02","female","static/img/assistant2.jpeg","ASSISTANCE",0,"");
+("123456784","123123",'0505050502',"user3@gmail.com","יונית","נחמני","2000-03-02","female","static/img/assistant2.jpeg","ASSISTANCE",0,"");
 
 
 
