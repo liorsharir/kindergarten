@@ -3,7 +3,7 @@ let file;
 
 function AddAssistant(index){
     if(index != undefined) assistant = data.assistants[index]
-    else                   assistant = {id:"-1",userID:"-1",firstName:"",lastName:"",birthday:"",phone:"",email:"",gender:"female",avatar:"static/img/genericAssistant.png"}
+    else                   assistant = {id:"-1",userID:"-1",firstName:"",lastName:"",birthday:"",phone:"",email:"",gender:"female",avatar:"static/img/genericAssistant.jpeg"}
     return /*html*/`
         <div id="addAssistant" class="add_item">
             <div id="AddAssistantExit" class="Exit" onclick="ExitActionAssistant()">X</div>
