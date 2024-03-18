@@ -1,8 +1,0 @@
-[Unit]
-Description=sadna service to run website
-
-[Service]
-ExecStart=/app/kindergarten/start.sh
-
-[Install]
-WantedBy=multi-user.target
