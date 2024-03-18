@@ -4,16 +4,16 @@ let tabelTo = new Table(["נשלח בתאריך","עבור","תאריכים","ג
 
 data.messages.reverse().forEach(msg=>{
     if(msg.from == data.user.id)
-        tabelTo.addRow([msg.date,msg.toName,`מ-${msg.start} עד ${msg.end}`,msg.body,msg.isRead? "נקרא":"לא",msg.confirm])
+        tabelTo.addRow([msg.date,msg.toName,`מ-${msg.start.split("T")[0]} עד ${msg.end.split("T")[0]}`,msg.body,msg.isRead? "נקרא":"לא",msg.confirm])
     if(msg.to == data.user.id)
-        tabelFrom.addRow([msg.date,msg.fromName,`מ-${msg.start} עד ${msg.end}`,msg.body, renderActionMessage(msg)])
+        tabelFrom.addRow([msg.date,msg.fromName,`מ-${msg.start.split("T")[0]} עד ${msg.end.split("T")[0]}`,msg.body, renderActionMessage(msg)])
 })
 
 document.title = "הודעות"
 document.getElementById("root").innerHTML += /*html*/`
     ${Header()}
     <div id="Message">
-        <div id="request" onclick="readAll()">
+        <div id="request">
             <h1>נשלח אליי</h1>
             ${tabelFrom.getHtml()}
         </div>
@@ -26,7 +26,7 @@ document.getElementById("root").innerHTML += /*html*/`
 
 
 function renderActionMessage(msg){
-    if(msg.confirm !="wait")  return msg.confirm 
+    if(msg.confirm !="wait")  return msg.confirm
     return /*html*/`
         <div>
             <button class="actionMessage_confirm" onclick="confirmMgs('${msg.id}','אושר')">אשר</button>
@@ -38,7 +38,7 @@ function renderActionMessage(msg){
 function confirmMgs(msgId,isConfirm){
     POST("/confirmMgs",{id: msgId ,isConfirm:isConfirm},(resopnse)=>{
         if(resopnse.status == 200){
-           Alert("הפעולה בוצעה בהצלחה","Good",1000, ()=> location.reload())
+            Alert("הפעולה בוצעה בהצלחה","Good",1000, ()=> location.reload())
         }
     })
 }

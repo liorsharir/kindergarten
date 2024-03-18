@@ -98,10 +98,11 @@ function addAsistantForDay(day){
                 toID:assistant,
                 fromID: data.user.id,
                 assistant : assistant,
+                assistantId : data.assistants.find(a=>a.id==assistant).id,
                 summery : "שיבוץ עובד",
                 body:body,
-                start:week.getDayDateFormat(day)+'T06:00:00',      
-                end:week.getDayDateFormat(day)+'T20:00:00'           
+                start:week.getDayDateFormat(day)+'T06:00:00',
+                end:week.getDayDateFormat(day)+'T20:00:00'
             }
             console.log("sendToserver",sendToServer)
             POST("/addAssistantsEvents",sendToServer,()=>{
@@ -123,11 +124,11 @@ function getMessageForWeek(){
         "6":"&nbsp;&nbsp;הוסף עובד",
         "7":"&nbsp;&nbsp;הוסף עובד",
     }
-    
+
     if(data.events)
         data.events.forEach(e=>{
             if( week.areDateInSameWeek(e.start.fullYear)  ){
-                let daynum =  new Date(e.start.fullYear).getDay()+1 
+                let daynum =  new Date(e.start.fullYear).getDay()+1
                 message[daynum] = renderCalendar( e.description , e.id)
             }
         })

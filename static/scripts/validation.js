@@ -62,7 +62,7 @@ function validation_Children(obj,id,elements){
     if(!isPhone(elements.phone_dad.value)){
         elements.phone_dad.style.backgroundColor =  "rgba(255, 209, 209,0.47)";messages.push("מספר טלפון של האבא לא תקין");valid = false
     }else elements.phone_dad.style.backgroundColor= "none"
-    
+
     if(!isPhone(elements.phone_mom.value)){
         elements.phone_mom.style.backgroundColor =  "rgba(255, 209, 209,0.47)";messages.push("מספר טלפון של האמא לא תקין");valid = false
     }else elements.phone_mom.style.backgroundColor= "none"
@@ -112,7 +112,7 @@ function validation_assistant(obj,id,elements){
     if(containsDigits(elements.lastName.value)){
         elements.lastName.style.backgroundColor =  "rgba(255, 209, 209,0.47)";messages.push("שם לא יכול להכיל מספר");valid = false
     }else elements.lastName.style.backgroundColor= "none"
-   
+
     if(!isPhone(elements.phone.value)){
         elements.phone.style.backgroundColor =  "rgba(255, 209, 209,0.47)";messages.push("מספר טלפון לא תקין");valid = false
     }else elements.phone.style.backgroundColor= "none"
@@ -132,7 +132,7 @@ function validation_assistant(obj,id,elements){
     }
     else{popup(/*html*/`<ul>${messages.map(m=>`<li class="validationItem">${m}</li>`).join("")}</ul>`)}
     return false;
-}   
+}
 
 
 
@@ -141,7 +141,7 @@ function validation_assistant_Event(obj){
     return {
         eventObj:{
             summary: "any",
-            location:  'לא צוין מיקום',
+            location:  nameOfAssistant.id,
             description: `${obj["bodyOfEvent"].value} <br/>  סייעת: ${nameOfAssistant.name}`,
             start: {
                 dateTime: `${obj['dateOfEvent'].value}T${obj["startHourOfEvent"].value}:00+02:00`,
@@ -163,12 +163,12 @@ function validation_assistant_Event(obj){
         },
         assistantOfEvent : obj["assistantOfEvent"].value
     }
-}   
+}
 
 
 function validation_Event(obj){
     return true
-}   
+}
 
 
 

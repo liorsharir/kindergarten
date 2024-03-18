@@ -13,7 +13,7 @@ class Week {
         this.saturday =""
         this.focusDate = ""
         this.Arr = []
-        this.getCurrentWeekSunday() 
+        this.getCurrentWeekSunday()
         this.getCurrentWeekSaturday()
     }
 
@@ -30,7 +30,7 @@ class Week {
 
     getCurrentWeekSaturday(){
         let date = new Date(this.currentDate)
-        date.setDate(date.getDate() + 6); 
+        date.setDate(date.getDate() + 6);
         this.saturday =  this.convert(date)
         return this;
     }
@@ -38,7 +38,7 @@ class Week {
 
     addWeekToDate(_date=this.currentDate) {
         let date = new Date(_date)
-        date.setDate(date.getDate() + 7); 
+        date.setDate(date.getDate() + 7);
         this.currentDate = this.convert(date);
         this.getCurrentWeekSunday();
         this.getCurrentWeekSaturday();
@@ -48,7 +48,7 @@ class Week {
     subWeekToDate(_date=this.currentDate) {
         console.log("ddd",_date)
         let date = new Date(_date)
-        date.setDate(date.getDate() - 7); 
+        date.setDate(date.getDate() - 7);
         this.currentDate = this.convert(date);
         this.getCurrentWeekSunday();
         this.getCurrentWeekSaturday();
@@ -57,13 +57,13 @@ class Week {
 
     getDayDate(num){
         let date = new Date(this.currentDate)
-        date.setDate(date.getDate() + num-1); 
+        date.setDate(date.getDate() + num-1);
         let temp = this.convert(date).split('-')
         return `${temp[1]} - ${temp[2]}`;
     }
     getDayDateFormat(num){
         let date = new Date(this.currentDate)
-        date.setDate(date.getDate() + num-1); 
+        date.setDate(date.getDate() + num-1);
         let temp = this.convert(date).split('-')
         return `${temp[0]}-${temp[1]}-${temp[2]}`;
     }
@@ -77,16 +77,19 @@ class Week {
         const firstDate = new Date(this.sunday);
         const date = new Date(dateStr1);
 
+        if(date.getTime() == firstDate.getTime())
+            return true
+
         let i =0
-        while(i<7){
-            firstDate.setDate(firstDate.getDate() + 1); 
+        while(i<6){
+            firstDate.setDate(firstDate.getDate() + 1);
             if(date.getTime() == firstDate.getTime())
                 return true
             i++;
         }
         return false
     }
-    
+
 }
 
 
@@ -152,9 +155,31 @@ class Month {
         return day+1
     }
     areDateInSameMonth(dateStr1) {
-        const firstDate = new Date(this.first);
-        const date = new Date(dateStr1);
-        return firstDate.getMonth()==date.getMonth()
+        const date1 = new Date(this.first);
+        const date2 = new Date(dateStr1);
+
+        console.log("date1 = ", date1)
+        console.log("date2 = ", date2)
+
+
+
+
+        let isSameOnMon = date1.getMonth() == date2.getMonth();
+
+        console.log("isSameOnMon = ", isSameOnMon)
+
+
+        date1.setDate(date1.getDate() - 1);
+
+        console.log("date1 = ", date1)
+        console.log("date2 = ", date2)
+        console.log("day date1 = ", date1.getDay())
+        console.log("day date2 = ", date2.getDay())
+
+        console.log(isSameOnMon || date1.getDay() ==  date2.getDay())
+
+        return isSameOnMon || date1.getDay() ==  date2.getDay()
+
     }
 }
 

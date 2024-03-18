@@ -107,6 +107,8 @@ def Loginout():
 def AddChildren():
     if checkPermission(["KINDERGARTNER"],request):
         Action.AddChildern(request)
+        calendarEvent.addToRole(request.form["mail_mom"])
+        calendarEvent.addToRole(request.form["mail_dad"])
         return jsonify({"status":"200"})
     return jsonify({"status":"401"})
 
@@ -131,6 +133,7 @@ def RemoveChildren():
 def AddAssistant():
     if checkPermission(["KINDERGARTNER"],request):
         Action.AddAssistans(request)
+        calendarAssistant.addToRole(request.form["email"])
         return jsonify({"status":"200"})
     return jsonify({"status":"401"})
 
@@ -162,7 +165,7 @@ def AllAssistantsEvents():
 def AddAssistantsEvents():
     if checkPermission(["KINDERGARTNER"],request):
         eventObj = request.get_json()
-        calendarAssistant.addEvent(calendarAssistant.CreateEventObjOfAsistant(summary=eventObj["summery"], description=eventObj["body"],start_date_time=eventObj["start"],end_date_time=eventObj["end"]))
+        calendarAssistant.addEvent(calendarAssistant.CreateEventObjOfAsistant(location=eventObj["assistantId"],summary=eventObj["summery"], description=eventObj["body"],start_date_time=eventObj["start"],end_date_time=eventObj["end"]))
         Action.send_message(request)
         return jsonify({"status":"200"})
     return jsonify({"status":"401"})
@@ -207,7 +210,7 @@ def SendMessage():
 
 @app.route('/readMgs',methods=['POST'])
 def ReadMgs():
-    Action.read_allMessage(request.get_json()["id"])
+    Action.read_message(request.get_json()["id"])
     return jsonify({"status":"200"})
 
 @app.route('/confirmMgs',methods=['POST'])

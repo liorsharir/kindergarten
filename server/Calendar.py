@@ -1,7 +1,7 @@
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 import datetime
-from .database import DB 
+from .database import DB
 
 class CalendarAPI:
     def __init__(self):
@@ -23,15 +23,15 @@ class Calendar(CalendarAPI):
     def getAllcalendars(self):
         calendars_result = self.service.calendarList().list().execute()
         calendars = calendars_result.get('items', [])
-        if not calendars:    
+        if not calendars:
             print('No calendars found.')
             return None
         return calendars
 
     def getCalendarById(self,id):
         for x in self.getAllcalendars():
-           if(x["id"] == id):
-               return x
+            if(x["id"] == id):
+                return x
         return None
 
 
@@ -46,6 +46,19 @@ class CalendarEvent(CalendarAPI):
             print("the type of calanfar not good")
             return
         self.calendar_id = self.calendarsID[type]
+
+
+    def addToRole(self,email):
+        self.service.acl().insert(calendarId=self.calendar_id, body={
+            "role": "reader",
+            "scope": {
+                "type": "user",
+                "value" : email
+            }
+        }).execute()
+
+
+
 
 
     def getAllEvents(self, json=False):
@@ -75,7 +88,7 @@ class CalendarEvent(CalendarAPI):
         return result
 
     def getEventsByDate(self,start,end,json=False):
-        start_date = datetime.datetime.strptime(start, "%Y-%m-%d").isoformat() + 'Z' 
+        start_date = datetime.datetime.strptime(start, "%Y-%m-%d").isoformat() + 'Z'
         end_date = datetime.datetime.strptime(end, "%Y-%m-%d").isoformat() + 'Z'
         events_result = self.service.events().list(calendarId=self.calendar_id, timeMin=start_date, timeMax=end_date).execute()
         events = events_result.get('items', [])
@@ -101,7 +114,7 @@ class CalendarEvent(CalendarAPI):
                 return Json
         return result
 
-    
+
     def addEvent(self, eventObj):
         event_result = self.service.events().insert(calendarId=self.calendar_id, body=eventObj).execute()
         print('Event created: %s' % (event_result.get('htmlLink')))
@@ -114,7 +127,7 @@ class CalendarEvent(CalendarAPI):
     def deleteEvent(self, event_id):
         self.service.events().delete(calendarId=self.calendar_id, eventId=event_id).execute()
         print('Event deleted.')
-        
+
     def deleteAllEvents(self):
         events = self.getAllEvents()
         if(events):
@@ -122,39 +135,30 @@ class CalendarEvent(CalendarAPI):
                 self.service.events().delete(calendarId=self.calendar_id,eventId=e["id"]).execute()
                 print('Event deleted.')
 
+    def isInRole(self,email):
+        acl = self.service.acl().list(calendarId=self.calendarsID["assistant"]).execute()
+        for rule in acl['items']:
+            if rule['scope'].get('type') == 'user' and rule['scope'].get('value') == email:
+                return True
+        return False
 
     def CreateEventObjOfAsistant(self,summary, start_date_time, end_date_time, location=None, description=None, attendees=None, reminders=None, recurrence=None, time_zone='Asia/Jerusalem'):
-        # allEmails = DB.instance.Query("select email From users")
-        # print(allEmails)
+        # assistEmail = DB.instance.Query(f"SELECT email FROM users WHERE id='{location}'")[0]
         event = {
             'summary': summary,
             'location': location if location else 'לא צוין מיקום',
             'description': description if description else 'לא צוינה תיאור',
-            'start': {
-                'dateTime': start_date_time,
-                'timeZone': time_zone,
-            },
-            'end': {
-                'dateTime': end_date_time,
-                'timeZone': time_zone,
-            },
+            'start': {'dateTime': start_date_time,'timeZone': time_zone,},
+            'end': {'dateTime': end_date_time,'timeZone': time_zone,},
             'recurrence': recurrence if recurrence else [],
-            'attendees': attendees if attendees else [],
-            'reminders': {
-                'useDefault': False,
-                'overrides': reminders if reminders else [
-                    {'method': 'email', 'minutes': 24 * 60},
-                    {'method': 'popup', 'minutes': 10},
-                ],
-            },
+            'attendees': [],
+            'reminders': {'useDefault': False,'overrides': reminders if reminders else [{'method': 'email', 'minutes': 24 * 60},{'method': 'popup', 'minutes': 10},],
+                          },
         }
         return event
-    
+
 
     def CreateEventObj(self,summary, start_date_time, end_date_time, location=None, description=None, attendees=None, reminders=None, recurrence=None, time_zone='Asia/Jerusalem'):
-        # allEmails = DB.instance.Query("(SELECT email AS email FROM users) UNION (SELECT fatherEmail AS email FROM children) UNION (SELECT motherEmail AS email FROM children)")
-        # attendees = [{'email': email[0]} for email in allEmails]
-
         event = {
             'summary': summary,
             'location': location if location else 'לא צוין מיקום',
@@ -191,5 +195,10 @@ class CalendarEvent(CalendarAPI):
             "hour"  :date[11:13],
             "min"   :date[14:16],
             "sec"   :date[17:19],
-        } 
-    
+        }
+
+
+
+
+
+
